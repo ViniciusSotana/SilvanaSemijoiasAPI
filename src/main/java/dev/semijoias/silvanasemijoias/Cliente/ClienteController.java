@@ -1,4 +1,4 @@
-package dev.Semijoias.SilvanaSemijoias.Cliente;
+package dev.semijoias.silvanasemijoias.Cliente;
 
 public class ClienteController {
 }

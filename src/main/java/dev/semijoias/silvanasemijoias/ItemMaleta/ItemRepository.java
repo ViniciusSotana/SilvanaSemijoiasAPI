@@ -1,4 +1,6 @@
-package dev.Semijoias.SilvanaSemijoias.ItemMaleta;
+package dev.semijoias.silvanasemijoias.ItemMaleta;
 
-public interface ItemRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface ItemRepository extends JpaRepository {
 }

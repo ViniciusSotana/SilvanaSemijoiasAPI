@@ -1,4 +1,4 @@
-package dev.Semijoias.SilvanaSemijoias.ItemMaleta;
+package dev.semijoias.silvanasemijoias.ItemMaleta;
 
 public class ItemService {
 }

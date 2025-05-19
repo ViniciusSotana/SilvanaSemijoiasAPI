@@ -1,4 +1,6 @@
-package dev.Semijoias.SilvanaSemijoias.TipoJoia;
+package dev.semijoias.silvanasemijoias.TipoJoia;
 
-public interface TipoRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface TipoRepository extends JpaRepository {
 }

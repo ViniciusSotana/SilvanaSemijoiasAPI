@@ -1,4 +1,4 @@
-package dev.Semijoias.SilvanaSemijoias.Administrador;
+package dev.semijoias.silvanasemijoias.Administrador;
 
 public class AdministradorController {
 }

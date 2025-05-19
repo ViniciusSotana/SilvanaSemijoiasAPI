@@ -1,4 +1,6 @@
-package dev.Semijoias.SilvanaSemijoias.Pedido;
+package dev.semijoias.silvanasemijoias.Pedido;
 
-public interface PedidoRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface PedidoRepository extends JpaRepository {
 }

@@ -1,4 +1,4 @@
-package dev.Semijoias.SilvanaSemijoias.Pedido;
+package dev.semijoias.silvanasemijoias.Pedido;
 
 public class PedidoMapper {
 }

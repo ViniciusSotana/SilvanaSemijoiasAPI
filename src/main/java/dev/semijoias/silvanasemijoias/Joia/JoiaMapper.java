@@ -1,4 +1,4 @@
-package dev.Semijoias.SilvanaSemijoias.Joia;
+package dev.semijoias.silvanasemijoias.Joia;
 
 public class JoiaMapper {
 }

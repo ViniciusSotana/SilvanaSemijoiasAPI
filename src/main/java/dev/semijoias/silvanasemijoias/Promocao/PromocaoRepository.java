@@ -1,4 +1,6 @@
-package dev.Semijoias.SilvanaSemijoias.Promocao;
+package dev.semijoias.silvanasemijoias.Promocao;
 
-public interface PromocaoRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface PromocaoRepository extends JpaRepository {
 }

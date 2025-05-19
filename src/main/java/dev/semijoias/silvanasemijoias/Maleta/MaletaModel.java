@@ -1,4 +1,4 @@
-package dev.Semijoias.SilvanaSemijoias.Maleta;
+package dev.semijoias.silvanasemijoias.Maleta;
 
 import java.util.Date;
 

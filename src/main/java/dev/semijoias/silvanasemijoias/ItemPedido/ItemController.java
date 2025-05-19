@@ -1,4 +1,4 @@
-package dev.Semijoias.SilvanaSemijoias.ItemPedido;
+package dev.semijoias.silvanasemijoias.ItemPedido;
 
 public class ItemController {
 }

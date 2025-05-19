@@ -1,4 +1,6 @@
-package dev.Semijoias.SilvanaSemijoias.Joia;
+package dev.semijoias.silvanasemijoias.Joia;
 
-public interface JoiaRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface JoiaRepository extends JpaRepository {
 }

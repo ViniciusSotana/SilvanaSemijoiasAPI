@@ -1,4 +1,6 @@
-package dev.Semijoias.SilvanaSemijoias.Vendedora;
+package dev.semijoias.silvanasemijoias.Vendedora;
 
-public interface VendedoraRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface VendedoraRepository extends JpaRepository {
 }

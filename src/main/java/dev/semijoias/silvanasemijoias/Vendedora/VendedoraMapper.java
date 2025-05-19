@@ -1,4 +1,4 @@
-package dev.Semijoias.SilvanaSemijoias.Vendedora;
+package dev.semijoias.silvanasemijoias.Vendedora;
 
 public class VendedoraMapper {
 }

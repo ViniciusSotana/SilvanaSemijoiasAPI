@@ -1,4 +1,4 @@
-package dev.Semijoias.SilvanaSemijoias.Colecao;
+package dev.semijoias.silvanasemijoias.Colecao;
 
 public class ColecaoService {
 }

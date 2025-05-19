@@ -1,4 +1,6 @@
-package dev.Semijoias.SilvanaSemijoias.Comentario;
+package dev.semijoias.silvanasemijoias.Comentario;
 
-public interface ComentarioRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface ComentarioRepository extends JpaRepository {
 }

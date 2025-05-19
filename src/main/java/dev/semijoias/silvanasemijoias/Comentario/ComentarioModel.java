@@ -1,4 +1,4 @@
-package dev.Semijoias.SilvanaSemijoias.Comentario;
+package dev.semijoias.silvanasemijoias.Comentario;
 
 public class ComentarioModel {
 

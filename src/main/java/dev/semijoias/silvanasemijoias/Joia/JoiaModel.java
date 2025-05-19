@@ -1,6 +1,6 @@
-package dev.Semijoias.SilvanaSemijoias.Joia;
+package dev.semijoias.silvanasemijoias.Joia;
 
-import dev.Semijoias.SilvanaSemijoias.Imagem.ImagemModel;
+import dev.semijoias.silvanasemijoias.Imagem.ImagemModel;
 
 import java.util.ArrayList;
 import java.util.List;

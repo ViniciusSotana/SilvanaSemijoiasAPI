@@ -1,4 +1,6 @@
-package dev.Semijoias.SilvanaSemijoias.Colecao;
+package dev.semijoias.silvanasemijoias.Colecao;
 
-public interface ColecaoRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface ColecaoRepository extends JpaRepository {
 }

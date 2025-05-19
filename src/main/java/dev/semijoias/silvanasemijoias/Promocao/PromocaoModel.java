@@ -1,4 +1,4 @@
-package dev.Semijoias.SilvanaSemijoias.Promocao;
+package dev.semijoias.silvanasemijoias.Promocao;
 
 public class PromocaoModel {
 

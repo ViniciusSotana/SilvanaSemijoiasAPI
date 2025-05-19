@@ -1,4 +1,4 @@
-package dev.Semijoias.SilvanaSemijoias.Maleta;
+package dev.semijoias.silvanasemijoias.Maleta;
 
 public class MaletaController {
 }

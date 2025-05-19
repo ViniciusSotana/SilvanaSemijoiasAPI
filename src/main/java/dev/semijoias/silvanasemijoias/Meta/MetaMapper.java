@@ -1,4 +1,4 @@
-package dev.Semijoias.SilvanaSemijoias.Meta;
+package dev.semijoias.silvanasemijoias.Meta;
 
 public class MetaMapper {
 }

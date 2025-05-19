@@ -1,4 +1,6 @@
-package dev.Semijoias.SilvanaSemijoias.Administrador;
+package dev.semijoias.silvanasemijoias.Administrador;
 
-public interface AdministradorRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface AdministradorRepository extends JpaRepository {
 }

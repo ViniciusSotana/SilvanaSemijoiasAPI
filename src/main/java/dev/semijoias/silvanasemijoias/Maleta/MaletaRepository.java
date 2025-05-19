@@ -1,4 +1,6 @@
-package dev.Semijoias.SilvanaSemijoias.Maleta;
+package dev.semijoias.silvanasemijoias.Maleta;
 
-public interface MaletaRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface MaletaRepository extends JpaRepository {
 }

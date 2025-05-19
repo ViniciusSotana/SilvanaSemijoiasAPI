@@ -1,4 +1,4 @@
-package dev.Semijoias.SilvanaSemijoias.Imagem;
+package dev.semijoias.silvanasemijoias.Imagem;
 
 public class ImagemController {
 }
