@@ -1,10 +1,7 @@
 package dev.semijoias.silvanasemijoias.Usuario;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,14 +14,13 @@ public class UsuarioModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
     private String nome;
     private String cpf;
     private String email;
     private String senha;
     private String endereco;
+    @Enumerated(EnumType.STRING)
     private TipoUsuario tipoUsuario;
-
-
 
 }
