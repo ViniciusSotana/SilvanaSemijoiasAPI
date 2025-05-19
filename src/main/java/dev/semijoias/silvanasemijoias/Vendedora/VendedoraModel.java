@@ -1,6 +1,10 @@
 package dev.semijoias.silvanasemijoias.Vendedora;
 
-public class VendedoraModel {
+import dev.semijoias.silvanasemijoias.Usuario.UsuarioModel;
+import jakarta.persistence.Entity;
+
+@Entity
+public class VendedoraModel extends UsuarioModel {
 
     private Integer idMaleta;
     private Integer idUsuario;

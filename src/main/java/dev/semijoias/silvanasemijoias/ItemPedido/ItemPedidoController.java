@@ -1,4 +1,4 @@
 package dev.semijoias.silvanasemijoias.ItemPedido;
 
-public class ItemMapper {
+public class ItemPedidoController {
 }

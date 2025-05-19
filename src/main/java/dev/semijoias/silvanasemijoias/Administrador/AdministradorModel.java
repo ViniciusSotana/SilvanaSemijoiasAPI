@@ -1,6 +1,10 @@
 package dev.semijoias.silvanasemijoias.Administrador;
 
-public class AdministradorModel {
+import dev.semijoias.silvanasemijoias.Usuario.UsuarioModel;
+import jakarta.persistence.Entity;
 
-    private Integer idUsuario;
+@Entity
+public class AdministradorModel extends UsuarioModel {
+
+    private Long idUsuario;
 }

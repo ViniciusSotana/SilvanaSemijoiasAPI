@@ -1,5 +1,8 @@
 package dev.semijoias.silvanasemijoias.Usuario;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class UsuarioMapper {
 
     public UsuarioModel map(UsuarioDTO usuarioDTO) {
