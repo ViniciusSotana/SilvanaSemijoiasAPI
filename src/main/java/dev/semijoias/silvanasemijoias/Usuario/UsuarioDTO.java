@@ -17,7 +17,7 @@ public class UsuarioDTO {
     private Long id;
     @NotBlank(message = "O campo nome é obrigatorio")
     private String nome;
-    @Pattern(regexp = "\\d{11}", message = "O CPF deve conter apenas números e ter 11 dígitos")
+    @Size(min = 11, max = 11)
     private String cpf;
     @Email(message = "O campo email deve ser valido")
     private String email;

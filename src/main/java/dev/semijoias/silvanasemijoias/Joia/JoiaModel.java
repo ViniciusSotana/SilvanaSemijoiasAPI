@@ -2,11 +2,17 @@ package dev.semijoias.silvanasemijoias.Joia;
 
 import dev.semijoias.silvanasemijoias.Imagem.ImagemModel;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class JoiaModel {
 
     @Id
