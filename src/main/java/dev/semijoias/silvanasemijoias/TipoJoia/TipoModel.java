@@ -1,12 +1,13 @@
 package dev.semijoias.silvanasemijoias.TipoJoia;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import dev.semijoias.silvanasemijoias.Joia.JoiaModel;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -19,5 +20,7 @@ public class TipoModel {
     private Long id;
     private String descricao;
     private Integer qntVendida;
+    @OneToMany(mappedBy = "tipo", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<JoiaModel> joias = new ArrayList<>();
 
 }

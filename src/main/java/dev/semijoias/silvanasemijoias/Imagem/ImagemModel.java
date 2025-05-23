@@ -1,5 +1,6 @@
 package dev.semijoias.silvanasemijoias.Imagem;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import dev.semijoias.silvanasemijoias.Joia.JoiaModel;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -18,6 +19,7 @@ public class ImagemModel {
     private String urlImagem;
     @ManyToOne
     @JoinColumn(name = "joia_id")
+    @JsonBackReference
     private JoiaModel joia;
 
 }

@@ -1,17 +1,23 @@
 package dev.semijoias.silvanasemijoias.Promocao;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import dev.semijoias.silvanasemijoias.Joia.JoiaModel;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class PromocaoModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long idJoia;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "joia_id")
+    private JoiaModel joia;
     private Double desconto;
 
 }
