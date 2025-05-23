@@ -1,5 +1,9 @@
 package dev.semijoias.silvanasemijoias.Joia;
 
+import dev.semijoias.silvanasemijoias.Colecao.ColecaoModel;
+import dev.semijoias.silvanasemijoias.Colecao.ColecaoRepository;
+import dev.semijoias.silvanasemijoias.TipoJoia.TipoModel;
+import dev.semijoias.silvanasemijoias.TipoJoia.TipoRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,11 +15,15 @@ public class JoiaService {
 
     private final JoiaRepository joiaRepository;
     private final JoiaMapper joiaMapper;
+    private final TipoRepository tipoRepository;
+    private final ColecaoRepository colecaoRepository;
 
 
-    public JoiaService(JoiaRepository joiaRepository, JoiaMapper joiaMapper) {
+    public JoiaService(JoiaRepository joiaRepository, JoiaMapper joiaMapper, TipoRepository tipoRepository, ColecaoRepository colecaoRepository) {
         this.joiaRepository = joiaRepository;
         this.joiaMapper = joiaMapper;
+        this.tipoRepository = tipoRepository;
+        this.colecaoRepository = colecaoRepository;
     }
 
     public List<JoiaDTO> listarJoia() {
@@ -32,6 +40,12 @@ public class JoiaService {
 
     public JoiaDTO cadastrarJoia(JoiaDTO joiaDTO) {
         JoiaModel joia = joiaMapper.map(joiaDTO);
+        TipoModel tipo = tipoRepository.findById(joiaDTO.getTipoId())
+                .orElseThrow(() -> new RuntimeException("Tipo não encontrado"));
+        ColecaoModel colecao = colecaoRepository.findById(joiaDTO.getColecaoId())
+                .orElseThrow(() -> new RuntimeException("Coleção não encontrada"));
+        joia.setTipo(tipo);
+        joia.setColecao(colecao);
         JoiaModel salvo = joiaRepository.save(joia);
         return joiaMapper.map(salvo);
     }

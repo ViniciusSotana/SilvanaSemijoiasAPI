@@ -26,10 +26,10 @@ public class JoiaDTO {
     @NotBlank(message = "Campo quantia em estoque é obrigatorio")
     private Integer quantidadeEstoque;
     @NotBlank(message = "Campo Tipo obrigatorio")
-    private TipoModel Tipo;
+    private Long tipoId;
     @NotBlank(message = "Campo quantidade vendida obrigatorio")
     private Integer quantidadeVendida;
-    private ColecaoModel colecao;
+    private Long colecaoId;
     @NotNull(message = "Campo imagem obrigatorio")
     List<ImagemModel> imagens = new ArrayList<>();
 
