@@ -1,7 +1,9 @@
 package dev.semijoias.silvanasemijoias.Joia;
 
 
+import dev.semijoias.silvanasemijoias.Colecao.ColecaoModel;
 import dev.semijoias.silvanasemijoias.Imagem.ImagemModel;
+import dev.semijoias.silvanasemijoias.TipoJoia.TipoModel;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotBlank;
@@ -24,10 +26,10 @@ public class JoiaDTO {
     @NotBlank(message = "Campo quantia em estoque é obrigatorio")
     private Integer quantidadeEstoque;
     @NotBlank(message = "Campo Tipo obrigatorio")
-    private Long idTipo;
+    private TipoModel Tipo;
     @NotBlank(message = "Campo quantidade vendida obrigatorio")
     private Integer quantidadeVendida;
-    private Long idColecao;
+    private ColecaoModel colecao;
     @NotNull(message = "Campo imagem obrigatorio")
     List<ImagemModel> imagens = new ArrayList<>();
 
