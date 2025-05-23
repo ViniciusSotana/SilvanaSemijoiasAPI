@@ -25,6 +25,7 @@ public class JoiaDTO {
     private Integer quantidadeEstoque;
     @NotBlank(message = "Campo Tipo obrigatorio")
     private Long idTipo;
+    @NotBlank(message = "Campo quantidade vendida obrigatorio")
     private Integer quantidadeVendida;
     private Long idColecao;
     @NotNull(message = "Campo imagem obrigatorio")
