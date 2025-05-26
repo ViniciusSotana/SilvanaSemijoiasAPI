@@ -1,13 +1,10 @@
 package dev.semijoias.silvanasemijoias.Joia;
 
 
-import dev.semijoias.silvanasemijoias.Colecao.ColecaoModel;
 import dev.semijoias.silvanasemijoias.Imagem.ImagemModel;
-import dev.semijoias.silvanasemijoias.TipoJoia.TipoModel;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,16 +18,16 @@ import java.util.List;
 public class JoiaDTO {
 
     private Long id;
-    @NotBlank(message = "Campo valor unitario é obrigatorio")
+    @NotNull(message = "Campo valor unitario é obrigatorio")
     private Double valorUnitario;
-    @NotBlank(message = "Campo quantia em estoque é obrigatorio")
+    @NotNull(message = "Campo quantia em estoque é obrigatorio")
     private Integer quantidadeEstoque;
-    @NotBlank(message = "Campo Tipo obrigatorio")
+    @NotNull(message = "Campo Tipo obrigatorio")
     private Long tipoId;
-    @NotBlank(message = "Campo quantidade vendida obrigatorio")
+    @NotNull(message = "Campo quantidade vendida obrigatorio")
     private Integer quantidadeVendida;
     private Long colecaoId;
-    @NotNull(message = "Campo imagem obrigatorio")
+    @Size(min = 1, message = "Deve conter ao menos uma imagem")
     List<ImagemModel> imagens = new ArrayList<>();
 
 

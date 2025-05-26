@@ -1,6 +1,5 @@
 package dev.semijoias.silvanasemijoias.Joia;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import dev.semijoias.silvanasemijoias.Colecao.ColecaoModel;
 import dev.semijoias.silvanasemijoias.Imagem.ImagemModel;
@@ -30,9 +29,8 @@ public class JoiaModel {
     private Integer quantidadeVendida;
     @ManyToOne
     @JoinColumn(name = "colecao")
-    @JsonBackReference
     private ColecaoModel colecao;
-    @OneToMany(mappedBy = "joia", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "joia", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @JsonManagedReference
     private List<ImagemModel> imagens = new ArrayList<>();
 

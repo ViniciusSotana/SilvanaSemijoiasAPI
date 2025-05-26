@@ -1,6 +1,5 @@
 package dev.semijoias.silvanasemijoias.Colecao;
 
-
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -38,14 +37,15 @@ public class ColecaoService {
 
 
     public ColecaoDTO atualizarColecao(Long id, ColecaoDTO colecaoDTO) {
-        Optional<ColecaoModel> colecao = colecaoRepository.findById(id);
-        if(colecao.isPresent()){
-            ColecaoModel colecaoExistente = colecao.get();
-            ColecaoModel atualizado = colecaoRepository.save(colecaoExistente);
+        ColecaoModel colecao = colecaoRepository.findById(id)
+                .orElse(null);
+
+            colecao.setNome(colecaoDTO.getNome());
+            colecao.setJoias(colecaoDTO.getJoias());
+
+            ColecaoModel atualizado = colecaoRepository.save(colecao);
 
             return colecaoMapper.map(atualizado);
-        }
-        return null;
     }
 
     public void removerColecao(Long id) {

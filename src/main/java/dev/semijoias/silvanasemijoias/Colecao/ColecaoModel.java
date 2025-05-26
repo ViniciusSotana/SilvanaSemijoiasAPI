@@ -21,7 +21,6 @@ public class ColecaoModel {
     private Long id;
     private String nome;
     @OneToMany(mappedBy = "colecao", cascade = CascadeType.ALL)
-    @JsonManagedReference
     private List<JoiaModel> joias = new ArrayList<>();
 
 }

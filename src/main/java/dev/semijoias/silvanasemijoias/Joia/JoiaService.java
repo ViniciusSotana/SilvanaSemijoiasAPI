@@ -4,7 +4,10 @@ import dev.semijoias.silvanasemijoias.Colecao.ColecaoModel;
 import dev.semijoias.silvanasemijoias.Colecao.ColecaoRepository;
 import dev.semijoias.silvanasemijoias.TipoJoia.TipoModel;
 import dev.semijoias.silvanasemijoias.TipoJoia.TipoRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
@@ -26,6 +29,7 @@ public class JoiaService {
         this.colecaoRepository = colecaoRepository;
     }
 
+    @Transactional(readOnly = true)
     public List<JoiaDTO> listarJoia() {
         List<JoiaModel> joias = joiaRepository.findAll();
         return joias.stream()
@@ -40,12 +44,14 @@ public class JoiaService {
 
     public JoiaDTO cadastrarJoia(JoiaDTO joiaDTO) {
         JoiaModel joia = joiaMapper.map(joiaDTO);
-        TipoModel tipo = tipoRepository.findById(joiaDTO.getTipoId())
-                .orElseThrow(() -> new RuntimeException("Tipo não encontrado"));
+
         ColecaoModel colecao = colecaoRepository.findById(joiaDTO.getColecaoId())
-                .orElseThrow(() -> new RuntimeException("Coleção não encontrada"));
-        joia.setTipo(tipo);
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,"Coleção não encontrada"));
         joia.setColecao(colecao);
+        TipoModel tipo = tipoRepository.findById(joiaDTO.getTipoId())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Tipo não encontrado"));
+        joia.setTipo(tipo);
+
         JoiaModel salvo = joiaRepository.save(joia);
         return joiaMapper.map(salvo);
     }
@@ -56,6 +62,20 @@ public class JoiaService {
         if(joia.isPresent()){
             JoiaModel joiaExistente = joia.get();
 
+            joiaExistente.setValorUnitario(joiaDTO.getValorUnitario());
+            joiaExistente.setQuantidadeEstoque(joiaDTO.getQuantidadeEstoque());
+            joiaExistente.setImagens(joiaDTO.getImagens());
+            joiaExistente.setQuantidadeVendida(joiaDTO.getQuantidadeVendida());
+
+            // Buscar e setar a nova Coleção
+            ColecaoModel colecao = colecaoRepository.findById(joiaDTO.getColecaoId())
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,"Coleção não encontrada"));
+            joiaExistente.setColecao(colecao);
+
+            // Buscar e setar o novo Tipo
+            TipoModel tipo = tipoRepository.findById(joiaDTO.getTipoId())
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Tipo não encontrado"));
+            joiaExistente.setTipo(tipo);
 
 
             JoiaModel atualizado = joiaRepository.save(joiaExistente);

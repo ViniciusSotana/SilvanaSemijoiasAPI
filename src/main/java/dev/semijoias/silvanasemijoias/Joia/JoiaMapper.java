@@ -22,8 +22,13 @@ public class JoiaMapper {
         joiaDTO.setQuantidadeEstoque(joiaModel.getQuantidadeEstoque());
         joiaDTO.setQuantidadeVendida(joiaModel.getQuantidadeVendida());
         joiaDTO.setImagens(joiaModel.getImagens());
-        joiaDTO.setTipoId(joiaModel.getTipo().getId());
-        joiaDTO.setColecaoId(joiaModel.getColecao().getId());
+        if (joiaModel.getTipo() != null) {
+            joiaDTO.setTipoId(joiaModel.getTipo().getId());
+        }
+
+        if (joiaModel.getColecao() != null) {
+            joiaDTO.setColecaoId(joiaModel.getColecao().getId());
+        }
         return joiaDTO;
     }
     
