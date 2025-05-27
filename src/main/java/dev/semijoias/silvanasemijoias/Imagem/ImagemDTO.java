@@ -17,6 +17,6 @@ public class ImagemDTO {
     @NotBlank(message = "URL obrigatoria")
     private String urlImagem;
     @NotNull(message = "Campo joia obrigatorio")
-    private JoiaModel joia;
+    private Long joiaId;
 
 }
