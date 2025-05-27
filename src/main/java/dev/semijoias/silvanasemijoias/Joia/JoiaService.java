@@ -29,7 +29,6 @@ public class JoiaService {
         this.colecaoRepository = colecaoRepository;
     }
 
-    @Transactional(readOnly = true)
     public List<JoiaDTO> listarJoia() {
         List<JoiaModel> joias = joiaRepository.findAll();
         return joias.stream()
@@ -65,21 +64,42 @@ public class JoiaService {
         if(joia.isPresent()){
             JoiaModel joiaExistente = joia.get();
 
+            // Remove da coleção atual, se tiver
+            if (joiaExistente.getColecao() != null) {
+                joiaExistente.getColecao().getJoias().remove(joiaExistente);
+            }
+
+            // Remove do tipo atual, se tiver
+            if (joiaExistente.getTipo() != null) {
+                joiaExistente.getTipo().getJoias().remove(joiaExistente);
+            }
+
             joiaExistente.setValorUnitario(joiaDTO.getValorUnitario());
             joiaExistente.setQuantidadeEstoque(joiaDTO.getQuantidadeEstoque());
-            joiaExistente.setImagens(joiaDTO.getImagens());
             joiaExistente.setQuantidadeVendida(joiaDTO.getQuantidadeVendida());
+            joiaExistente.setImagens(joiaDTO.getImagens());
+
 
             // Buscar e setar a nova Coleção
             ColecaoModel colecao = colecaoRepository.findById(joiaDTO.getColecaoId())
                     .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,"Coleção não encontrada"));
             joiaExistente.setColecao(colecao);
 
+
             // Buscar e setar o novo Tipo
             TipoModel tipo = tipoRepository.findById(joiaDTO.getTipoId())
                     .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Tipo não encontrado"));
             joiaExistente.setTipo(tipo);
 
+
+            //Adiciona a joia nas listas de colecao e de tipo
+            if(!colecao.getJoias().contains(joiaExistente) ){
+                colecao.getJoias().add(joiaExistente);
+            }
+
+            if(!tipo.getJoias().contains(joiaExistente) ){
+                tipo.getJoias().add(joiaExistente);
+            }
 
             JoiaModel atualizado = joiaRepository.save(joiaExistente);
 
@@ -89,7 +109,16 @@ public class JoiaService {
     }
 
     public void removerJoia(Long id) {
-        joiaRepository.deleteById(id);
+        JoiaModel joia = joiaRepository.findById(id)
+                .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "Joia nao encontrada"));
+        if (joia.getColecao() != null) {
+            joia.getColecao().getJoias().remove(joia);
+        }
+        if (joia.getTipo() != null) {
+            joia.getTipo().getJoias().remove(joia);
+        }
+
+        joiaRepository.delete(joia);
     }
 
 }
