@@ -1,5 +1,6 @@
 package dev.semijoias.silvanasemijoias.TipoJoia;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import dev.semijoias.silvanasemijoias.Joia.JoiaModel;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -20,7 +21,8 @@ public class TipoModel {
     private Long id;
     private String descricao;
     private Integer qntVendida;
-    @OneToMany(mappedBy = "tipo", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "tipo", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonIgnore
     private List<JoiaModel> joias = new ArrayList<>();
 
 }

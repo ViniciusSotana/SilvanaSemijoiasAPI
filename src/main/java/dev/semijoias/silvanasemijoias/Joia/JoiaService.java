@@ -48,9 +48,12 @@ public class JoiaService {
         ColecaoModel colecao = colecaoRepository.findById(joiaDTO.getColecaoId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,"Coleção não encontrada"));
         joia.setColecao(colecao);
+        colecao.getJoias().add(joia);
+
         TipoModel tipo = tipoRepository.findById(joiaDTO.getTipoId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Tipo não encontrado"));
         joia.setTipo(tipo);
+        tipo.getJoias().add(joia);
 
         JoiaModel salvo = joiaRepository.save(joia);
         return joiaMapper.map(salvo);

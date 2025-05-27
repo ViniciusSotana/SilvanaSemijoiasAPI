@@ -1,5 +1,6 @@
 package dev.semijoias.silvanasemijoias.Colecao;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import dev.semijoias.silvanasemijoias.Joia.JoiaModel;
 import jakarta.persistence.*;
@@ -20,7 +21,8 @@ public class ColecaoModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nome;
-    @OneToMany(mappedBy = "colecao", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "colecao", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonIgnore
     private List<JoiaModel> joias = new ArrayList<>();
 
 }
