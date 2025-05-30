@@ -6,7 +6,6 @@ import dev.semijoias.silvanasemijoias.TipoJoia.TipoModel;
 import dev.semijoias.silvanasemijoias.TipoJoia.TipoRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
@@ -117,7 +116,6 @@ public class JoiaService {
         if (joia.getTipo() != null) {
             joia.getTipo().getJoias().remove(joia);
         }
-
         joiaRepository.delete(joia);
     }
 

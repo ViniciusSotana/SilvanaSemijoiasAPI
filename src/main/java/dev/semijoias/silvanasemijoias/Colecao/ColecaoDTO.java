@@ -1,9 +1,6 @@
 package dev.semijoias.silvanasemijoias.Colecao;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import dev.semijoias.silvanasemijoias.Joia.JoiaModel;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
