@@ -14,8 +14,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @PrimaryKeyJoinColumn(name = "usuario_id")
 public class VendedoraModel extends UsuarioModel {
-    @JoinColumn(name = "maleta")
-    private Long idMaleta;
+    @JoinColumn(name = "maleta_id", referencedColumnName = "id", unique = true)
+    @OneToOne
+    @JsonIgnore
+    private MaletaModel maleta;
     private Double comissao;
 
 }

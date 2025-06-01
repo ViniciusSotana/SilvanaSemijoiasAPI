@@ -7,7 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @Data
@@ -22,7 +22,7 @@ public class MaletaModel {
     @JsonIgnore
     private VendedoraModel vendedora;
     private String status;
-    private Date dataEntrega;
-    private Date dataDevolucao;
+    private LocalDate dataEntrega;
+    private LocalDate dataDevolucao;
 
 }

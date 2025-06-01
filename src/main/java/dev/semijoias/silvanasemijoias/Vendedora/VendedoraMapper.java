@@ -15,7 +15,6 @@ public class VendedoraMapper {
         vendedoraModel.setSenha(vendedoraDTO.getSenha());
         vendedoraModel.setEndereco(vendedoraDTO.getEndereco());
         vendedoraModel.setTipoUsuario(vendedoraDTO.getTipoUsuario());
-        vendedoraModel.setIdMaleta(vendedoraDTO.getIdMaleta());
         vendedoraModel.setComissao(vendedoraDTO.getComissao());
         return vendedoraModel;
     }
@@ -29,8 +28,12 @@ public class VendedoraMapper {
         vendedoraDTO.setSenha(vendedoraModel.getSenha());
         vendedoraDTO.setEndereco(vendedoraModel.getEndereco());
         vendedoraDTO.setTipoUsuario(vendedoraModel.getTipoUsuario());
-        vendedoraDTO.setIdMaleta(vendedoraModel.getIdMaleta());
         vendedoraDTO.setComissao(vendedoraModel.getComissao());
+
+        if (vendedoraModel.getMaleta() != null) {
+            vendedoraDTO.setMaletaId(vendedoraModel.getMaleta().getId());
+        }
+
         return vendedoraDTO;
     }
 }

@@ -40,6 +40,10 @@ public class MaletaService {
         if(maleta.isPresent()){
             MaletaModel maletaExistente = maleta.get();
 
+            maletaExistente.setStatus(maletaDTO.getStatus());
+            maletaExistente.setDataEntrega(maletaDTO.getDataEntrega());
+            maletaExistente.setDataDevolucao(maletaDTO.getDataDevolucao());
+            maletaExistente.setVendedora(maletaDTO.getVendedora());
 
 
             MaletaModel atualizado = maletaRepository.save(maletaExistente);

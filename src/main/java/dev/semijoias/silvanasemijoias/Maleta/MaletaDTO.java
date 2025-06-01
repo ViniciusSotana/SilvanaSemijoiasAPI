@@ -6,23 +6,21 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class MaletaDTO {
 
-    @NotNull(message = "Id obrigatorio")
     private Long id;
-    @NotNull(message = "Vendedora obrigatorio")
     private VendedoraModel vendedora;
     @NotNull(message = "Status obrigatorio")
     private String status;
     @NotNull(message = "Data de entrega obrigatorio")
-    private Date dataEntrega;
+    private LocalDate dataEntrega;
     @NotNull(message = "Data de devolucao obrigatorio")
-    private Date dataDevolucao;
+    private LocalDate dataDevolucao;
 
 
 }

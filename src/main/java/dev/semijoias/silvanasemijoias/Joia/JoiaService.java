@@ -79,19 +79,14 @@ public class JoiaService {
             joiaExistente.setImagens(joiaDTO.getImagens());
 
 
-            // Buscar e setar a nova Coleção
             ColecaoModel colecao = colecaoRepository.findById(joiaDTO.getColecaoId())
                     .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,"Coleção não encontrada"));
             joiaExistente.setColecao(colecao);
 
-
-            // Buscar e setar o novo Tipo
             TipoModel tipo = tipoRepository.findById(joiaDTO.getTipoId())
                     .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Tipo não encontrado"));
             joiaExistente.setTipo(tipo);
 
-
-            //Adiciona a joia nas listas de colecao e de tipo
             if(!colecao.getJoias().contains(joiaExistente) ){
                 colecao.getJoias().add(joiaExistente);
             }
