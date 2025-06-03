@@ -1,5 +1,6 @@
 package dev.semijoias.silvanasemijoias.Cliente;
 
+import dev.semijoias.silvanasemijoias.Pedido.PedidoModel;
 import dev.semijoias.silvanasemijoias.Usuario.UsuarioModel;
 import jakarta.persistence.Entity;
 import lombok.AllArgsConstructor;
@@ -12,8 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ClienteModel extends UsuarioModel {
 
-    private Integer idPedido;
-    private Integer idUsuario;
+    private PedidoModel pedido;
     private Double valorTotalComprado;
 
 }
