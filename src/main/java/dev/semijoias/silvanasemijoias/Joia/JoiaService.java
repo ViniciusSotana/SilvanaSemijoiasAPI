@@ -73,7 +73,7 @@ public class JoiaService {
                 joiaExistente.getTipo().getJoias().remove(joiaExistente);
             }
 
-            joiaExistente.setValorUnitario(joiaDTO.getValorUnitario());
+            joiaExistente.setValorOriginal(joiaDTO.getValorOriginal());
             joiaExistente.setQuantidadeEstoque(joiaDTO.getQuantidadeEstoque());
             joiaExistente.setQuantidadeVendida(joiaDTO.getQuantidadeVendida());
             joiaExistente.setImagens(joiaDTO.getImagens());

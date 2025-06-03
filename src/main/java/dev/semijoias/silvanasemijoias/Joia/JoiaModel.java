@@ -3,6 +3,7 @@ package dev.semijoias.silvanasemijoias.Joia;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import dev.semijoias.silvanasemijoias.Colecao.ColecaoModel;
 import dev.semijoias.silvanasemijoias.Imagem.ImagemModel;
+import dev.semijoias.silvanasemijoias.Promocao.PromocaoModel;
 import dev.semijoias.silvanasemijoias.TipoJoia.TipoModel;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -21,8 +22,12 @@ public class JoiaModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Double valorUnitario;
+    private Double valorOriginal;
+    private Double valorVenda;
     private Integer quantidadeEstoque;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "promocao_id")
+    private PromocaoModel promocao;
     @ManyToOne
     @JoinColumn(name = "tipo")
     private TipoModel tipo;
