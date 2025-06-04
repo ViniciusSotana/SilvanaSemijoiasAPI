@@ -1,6 +1,7 @@
 package dev.semijoias.silvanasemijoias.Vendedora;
 
 
+import dev.semijoias.silvanasemijoias.Usuario.TipoUsuario;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -14,7 +15,8 @@ public class VendedoraMapper {
         vendedoraModel.setEmail(vendedoraDTO.getEmail());
         vendedoraModel.setSenha(vendedoraDTO.getSenha());
         vendedoraModel.setEndereco(vendedoraDTO.getEndereco());
-        vendedoraModel.setTipoUsuario(vendedoraDTO.getTipoUsuario());
+        vendedoraModel.setTipoUsuario(TipoUsuario.VENDEDORA);
+        vendedoraModel.setTelefone(vendedoraDTO.getTelefone());
         vendedoraModel.setComissao(vendedoraDTO.getComissao());
         return vendedoraModel;
     }
@@ -27,7 +29,8 @@ public class VendedoraMapper {
         vendedoraDTO.setEmail(vendedoraModel.getEmail());
         vendedoraDTO.setSenha(vendedoraModel.getSenha());
         vendedoraDTO.setEndereco(vendedoraModel.getEndereco());
-        vendedoraDTO.setTipoUsuario(vendedoraModel.getTipoUsuario());
+        vendedoraDTO.setTipoUsuario(TipoUsuario.VENDEDORA);
+        vendedoraDTO.setTelefone(vendedoraModel.getTelefone());
         vendedoraDTO.setComissao(vendedoraModel.getComissao());
 
         if (vendedoraModel.getMaleta() != null) {

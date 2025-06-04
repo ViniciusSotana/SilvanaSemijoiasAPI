@@ -72,6 +72,9 @@ public class VendedoraService {
             vendedoraExistente.setEndereco(vendedoraDTO.getEndereco());
             vendedoraExistente.setTipoUsuario(vendedoraDTO.getTipoUsuario());
             vendedoraExistente.setComissao(vendedoraDTO.getComissao());
+            vendedoraExistente.setTelefone(vendedoraDTO.getTelefone());
+            vendedoraExistente.setEmail(vendedoraDTO.getEmail());
+
 
             VendedoraModel atualizado = vendedoraRepository.save(vendedoraExistente);
             return vendedoraMapper.map(atualizado);
