@@ -27,5 +27,7 @@ public class UsuarioDTO {
     @NotBlank(message = "O endereço é obrigatório")
     private String endereco;
     private TipoUsuario tipoUsuario;
+    @NotBlank(message = "O usuario precisa de um telefone")
+    private String telefone;
 
 }
