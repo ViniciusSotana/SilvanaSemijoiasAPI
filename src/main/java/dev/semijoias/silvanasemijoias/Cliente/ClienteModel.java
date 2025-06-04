@@ -1,5 +1,6 @@
 package dev.semijoias.silvanasemijoias.Cliente;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import dev.semijoias.silvanasemijoias.Pedido.PedidoModel;
 import dev.semijoias.silvanasemijoias.Usuario.UsuarioModel;
 import jakarta.persistence.CascadeType;

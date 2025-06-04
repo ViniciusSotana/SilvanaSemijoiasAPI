@@ -18,7 +18,7 @@ public class PedidoDTO {
 
     private Long id;
     @NotNull(message = "cliente obrigatorio")
-    private ClienteModel cliente;
+    private Long clienteId;
     @NotNull(message = "data obrigatorio")
     private LocalDate dataCriacao;
     @NotNull(message = "status obrigatorio")
@@ -27,8 +27,6 @@ public class PedidoDTO {
     private Double valorTotal;
     private LocalDate dataFechamento;
     private String observacao;
-    @NotNull
-    @Size(min = 1, message = "Pedido precisa de pelo menos 1 item")
     private List<ItemPedidoModel> itens;
 
 }

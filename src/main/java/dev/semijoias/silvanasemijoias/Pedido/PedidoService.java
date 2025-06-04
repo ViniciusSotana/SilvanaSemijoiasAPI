@@ -1,13 +1,14 @@
 package dev.semijoias.silvanasemijoias.Pedido;
 
+import dev.semijoias.silvanasemijoias.Cliente.ClienteModel;
 import dev.semijoias.silvanasemijoias.Cliente.ClienteRepository;
 import dev.semijoias.silvanasemijoias.ItemPedido.ItemPedidoModel;
 import dev.semijoias.silvanasemijoias.ItemPedido.ItemPedidoRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -15,12 +16,18 @@ import java.util.List;
 public class PedidoService {
 
     private final PedidoRepository pedidoRepository;
+    private final PedidoMapper pedidoMapper;
     private final ItemPedidoRepository itemPedidoRepository;
     private final ClienteRepository clienteRepository;
 
-    public PedidoModel criarPedido(PedidoModel pedido) {
-        pedido.setDataCriacao(LocalDate.now());
-        return pedidoRepository.save(pedido);
+    public PedidoDTO criarPedido(PedidoDTO dto) {
+        ClienteModel cliente = clienteRepository.findById(dto.getClienteId())
+                .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado"));
+
+        PedidoModel model = pedidoMapper.map(dto, cliente); // << Passa o cliente direto pro mapper
+
+        PedidoModel salvo = pedidoRepository.save(model);
+        return pedidoMapper.map(salvo);
     }
 
     public List<PedidoModel> listarPedidos() {
@@ -41,10 +48,15 @@ public class PedidoService {
         return pedidoRepository.save(existente);
     }
 
+    @Transactional
     public void deletarPedido(Long id) {
-        PedidoModel pedido = buscarPorId(id);
+        PedidoModel pedido = pedidoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Pedido não encontrado"));
+
+        pedido.getItens().clear();
         pedidoRepository.delete(pedido);
     }
+
 
     public PedidoModel adicionarItemAoPedido(Long pedidoId, ItemPedidoModel item) {
         PedidoModel pedido = buscarPorId(pedidoId);

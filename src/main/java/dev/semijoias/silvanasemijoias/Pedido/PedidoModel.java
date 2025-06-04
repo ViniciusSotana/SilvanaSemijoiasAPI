@@ -1,5 +1,6 @@
 package dev.semijoias.silvanasemijoias.Pedido;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import dev.semijoias.silvanasemijoias.Cliente.ClienteModel;
 import dev.semijoias.silvanasemijoias.ItemPedido.ItemPedidoModel;
 import jakarta.persistence.*;
@@ -21,6 +22,7 @@ public class PedidoModel {
     private Long id;
     @ManyToOne
     @JoinColumn(name = "cliente_id")
+    @JsonIgnore
     private ClienteModel cliente;
     private LocalDate dataCriacao;
     @Enumerated(EnumType.STRING)
@@ -28,7 +30,7 @@ public class PedidoModel {
     private Double valorTotal;
     private LocalDate dataFechamento;
     private String observacao;
-    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<ItemPedidoModel> itens;
 
 
