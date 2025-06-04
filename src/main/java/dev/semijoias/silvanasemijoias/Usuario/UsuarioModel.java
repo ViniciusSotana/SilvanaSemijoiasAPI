@@ -23,5 +23,6 @@ public class UsuarioModel {
     private String endereco;
     @Enumerated(EnumType.STRING)
     private TipoUsuario tipoUsuario;
+    private String telefone;
 
 }
