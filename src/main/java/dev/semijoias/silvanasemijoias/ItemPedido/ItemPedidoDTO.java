@@ -2,6 +2,7 @@ package dev.semijoias.silvanasemijoias.ItemPedido;
 
 import dev.semijoias.silvanasemijoias.Joia.JoiaModel;
 import dev.semijoias.silvanasemijoias.Pedido.PedidoModel;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,6 +15,7 @@ public class ItemPedidoDTO {
     private Long id;
     private Long joiaId;
     private Long pedidoId;
+    @NotNull(message = "Quantidade obrigatoria")
     private Integer quantidade;
     private Double subTotal;
 
