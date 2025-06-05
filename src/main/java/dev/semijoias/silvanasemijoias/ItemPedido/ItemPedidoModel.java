@@ -1,5 +1,6 @@
 package dev.semijoias.silvanasemijoias.ItemPedido;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import dev.semijoias.silvanasemijoias.Joia.JoiaModel;
 import dev.semijoias.silvanasemijoias.Pedido.PedidoModel;
 import jakarta.persistence.*;
@@ -23,10 +24,10 @@ public class ItemPedidoModel {
 
     @ManyToOne
     @JoinColumn(name = "pedido_id", nullable = false)
+    @JsonIgnore
     private PedidoModel pedido;
 
     private Integer quantidade;
-    private Double valorUnitario;
     private Double subTotal;
 }
 
