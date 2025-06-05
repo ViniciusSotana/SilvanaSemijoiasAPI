@@ -38,8 +38,13 @@ public class PedidoController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletar(@PathVariable Long id) {
-        pedidoService.deletarPedido(id);
-        return ResponseEntity.noContent().build();
+        if (pedidoService.buscarPorId(id) != null) {
+            pedidoService.deletarPedido(id);
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+
     }
 
     @PostMapping("/{id}/itens")

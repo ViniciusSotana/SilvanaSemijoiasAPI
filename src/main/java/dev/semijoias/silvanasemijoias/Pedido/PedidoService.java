@@ -24,7 +24,7 @@ public class PedidoService {
         ClienteModel cliente = clienteRepository.findById(dto.getClienteId())
                 .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado"));
 
-        PedidoModel model = pedidoMapper.map(dto, cliente); // << Passa o cliente direto pro mapper
+        PedidoModel model = pedidoMapper.map(dto, cliente);
 
         PedidoModel salvo = pedidoRepository.save(model);
         return pedidoMapper.map(salvo);
@@ -50,13 +50,15 @@ public class PedidoService {
 
     @Transactional
     public void deletarPedido(Long id) {
-        PedidoModel pedido = pedidoRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Pedido não encontrado"));
+        PedidoModel pedido = pedidoRepository.findById(id).orElse(null);
 
-        pedido.getItens().clear();
-        pedidoRepository.delete(pedido);
+        if (pedido != null && pedido.getCliente() != null) {
+            ClienteModel cliente = pedido.getCliente();
+            cliente.getPedidos().remove(pedido); // remove da lista
+
+            clienteRepository.save(cliente);
+        }
     }
-
 
     public PedidoModel adicionarItemAoPedido(Long pedidoId, ItemPedidoModel item) {
         PedidoModel pedido = buscarPorId(pedidoId);
