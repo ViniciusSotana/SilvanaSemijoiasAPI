@@ -25,7 +25,7 @@ public class JoiaModel {
     private Double valorOriginal;
     private Double valorVenda;
     private Integer quantidadeEstoque;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "promocao_id")
     private PromocaoModel promocao;
     @ManyToOne

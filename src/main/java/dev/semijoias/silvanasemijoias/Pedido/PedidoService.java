@@ -54,7 +54,7 @@ public class PedidoService {
 
         if (pedido != null && pedido.getCliente() != null) {
             ClienteModel cliente = pedido.getCliente();
-            cliente.getPedidos().remove(pedido); // remove da lista
+            cliente.getPedidos().remove(pedido);
 
             clienteRepository.save(cliente);
         }

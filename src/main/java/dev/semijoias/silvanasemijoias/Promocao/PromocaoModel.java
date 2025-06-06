@@ -1,5 +1,6 @@
 package dev.semijoias.silvanasemijoias.Promocao;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import dev.semijoias.silvanasemijoias.Joia.JoiaModel;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -29,6 +30,7 @@ public class PromocaoModel {
 
     @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "promocao_id")
+    @JsonIgnore
     private List<JoiaModel> joias = new ArrayList<>();
 
 }
