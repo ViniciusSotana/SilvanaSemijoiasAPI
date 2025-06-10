@@ -2,6 +2,8 @@ package dev.semijoias.silvanasemijoias.relatorios;
 
 import dev.semijoias.silvanasemijoias.Cliente.ClienteModel;
 import dev.semijoias.silvanasemijoias.Cliente.ClienteRepository;
+import dev.semijoias.silvanasemijoias.Vendedora.VendedoraModel;
+import dev.semijoias.silvanasemijoias.Vendedora.VendedoraRepository;
 import dev.semijoias.silvanasemijoias.utils.RelatorioUtils;
 import lombok.AllArgsConstructor;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
@@ -18,23 +20,7 @@ import java.util.Map;
 public class RelatorioService {
 
     private final ClienteRepository clienteRepository;
-
-//    public ResponseEntity<byte[]> gerarRelatorioDeClientes(){
-//
-//        ClienteModel cliente = this.clienteRepository.findById(1L)
-//                .orElse(null);
-//
-//        Map<String, Object> parametros = new HashMap<>();
-//
-//        parametros.put("NOME", cliente.getNome());
-//        parametros.put("CPF", cliente.getCpf());
-//        parametros.put("EMAIL", cliente.getEmail());
-//        parametros.put("VALORTOTAL", cliente.getValorTotalComprado());
-//        parametros.put("TELEFONE", cliente.getTelefone());
-//        parametros.put("ENDERECO", cliente.getEndereco());
-//        parametros.put("LISTA", new JRBeanCollectionDataSource(clienteRepository.findAll()));
-//        return RelatorioUtils.gerarRelatorioEmPDF("RelatorioClientes", parametros);
-//    }
+    private final VendedoraRepository vendedoraRepository;
 
     public ResponseEntity<byte[]> gerarRelatorioDeClientes() {
         List<ClienteModel> clientes = clienteRepository.findAllByOrderByValorTotalCompradoDesc();
@@ -47,6 +33,20 @@ public class RelatorioService {
         parametros.put("LISTA", new JRBeanCollectionDataSource(clientes));
 
         return RelatorioUtils.gerarRelatorioEmPDF("RelatorioClientes", parametros);
+    }
+
+
+    public ResponseEntity<byte[]> gerarRelatorioDeVendedoras() {
+        List<VendedoraModel> vendedoras = vendedoraRepository.findAllByOrderByComissaoDesc();
+
+        if (vendedoras.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+
+        Map<String, Object> parametros = new HashMap<>();
+        parametros.put("LISTA", new JRBeanCollectionDataSource(vendedoras));
+
+        return RelatorioUtils.gerarRelatorioEmPDF("RelatorioVendedoras", parametros);
     }
 
 }

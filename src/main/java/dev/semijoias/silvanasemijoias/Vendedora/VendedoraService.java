@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -93,6 +94,23 @@ public class VendedoraService {
             vendedoraRepository.save(vendedora);
         }
         vendedoraRepository.deleteById(id);
+    }
+
+
+    public void gerarVendedorasFake() {
+
+        for (int i = 1; i <= 20; i++) {
+            VendedoraModel v = new VendedoraModel();
+            v.setNome("Vendedora " + i);
+            v.setCpf(String.format("%011d", 10000000000L + (long) (Math.random() * 8999999999L)));
+            v.setEmail("vendedora" + i + "@exemplo.com");
+            v.setSenha("senha" + i + "123");
+            v.setEndereco("Rua Exemplo, " + (10 + i));
+            v.setTelefone("9" + String.format("%08d", (int) (Math.random() * 100000000)));
+            v.setComissao((double) (5 + (i % 16)));
+
+            vendedoraRepository.save(v);
+        }
     }
     
 }

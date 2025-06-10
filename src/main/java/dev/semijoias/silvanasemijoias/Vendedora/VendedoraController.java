@@ -1,6 +1,7 @@
 package dev.semijoias.silvanasemijoias.Vendedora;
 
 
+import dev.semijoias.silvanasemijoias.relatorios.RelatorioService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,9 +14,11 @@ import java.util.List;
 public class VendedoraController {
 
     private final VendedoraService vendedoraService;
+    private final RelatorioService relatorioService;
 
-    public VendedoraController(VendedoraService vendedoraService) {
+    public VendedoraController(VendedoraService vendedoraService, RelatorioService relatorioService) {
         this.vendedoraService = vendedoraService;
+        this.relatorioService = relatorioService;
     }
 
     @GetMapping
@@ -32,6 +35,17 @@ public class VendedoraController {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @GetMapping("/relatorios")
+    public ResponseEntity<byte[]> gerarRelatorioCliente() {
+        return this.relatorioService.gerarRelatorioDeVendedoras();
+    }
+
+    @PostMapping("/gerar")
+    public ResponseEntity gerarVendedoras(){
+        vendedoraService.gerarVendedorasFake();
+        return ResponseEntity.status(HttpStatus.CREATED).body("Vendedoras criadas");
     }
 
     @PostMapping
