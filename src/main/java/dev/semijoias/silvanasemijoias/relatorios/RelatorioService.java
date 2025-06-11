@@ -2,6 +2,8 @@ package dev.semijoias.silvanasemijoias.relatorios;
 
 import dev.semijoias.silvanasemijoias.Cliente.ClienteModel;
 import dev.semijoias.silvanasemijoias.Cliente.ClienteRepository;
+import dev.semijoias.silvanasemijoias.Joia.JoiaModel;
+import dev.semijoias.silvanasemijoias.Joia.JoiaRepository;
 import dev.semijoias.silvanasemijoias.Vendedora.VendedoraModel;
 import dev.semijoias.silvanasemijoias.Vendedora.VendedoraRepository;
 import dev.semijoias.silvanasemijoias.utils.RelatorioUtils;
@@ -21,6 +23,7 @@ public class RelatorioService {
 
     private final ClienteRepository clienteRepository;
     private final VendedoraRepository vendedoraRepository;
+    private final JoiaRepository joiaRepository;
 
     public ResponseEntity<byte[]> gerarRelatorioDeClientes() {
         List<ClienteModel> clientes = clienteRepository.findAllByOrderByValorTotalCompradoDesc();
@@ -47,6 +50,20 @@ public class RelatorioService {
         parametros.put("LISTA", new JRBeanCollectionDataSource(vendedoras));
 
         return RelatorioUtils.gerarRelatorioEmPDF("RelatorioVendedoras", parametros);
+    }
+
+
+    public ResponseEntity<byte[]> gerarRelatorioDeJoiasEsgotadas() {
+        List<JoiaModel> joiasEsgotadas = joiaRepository.findByQuantidadeEstoque(0);
+
+        if (joiasEsgotadas.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+
+        Map<String, Object> parametros = new HashMap<>();
+        parametros.put("LISTA", new JRBeanCollectionDataSource(joiasEsgotadas));
+
+        return RelatorioUtils.gerarRelatorioEmPDF("RelatorioJoiasEsgotadas", parametros);
     }
 
 }

@@ -10,6 +10,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,4 +41,11 @@ public class JoiaModel {
     @JsonManagedReference
     private List<ImagemModel> imagens = new ArrayList<>();
 
+
+    public String getImagemUrl() {
+        if (!imagens.isEmpty()) {
+            return imagens.get(0).getUrlImagem();
+        }
+        return null;
+    }
 }

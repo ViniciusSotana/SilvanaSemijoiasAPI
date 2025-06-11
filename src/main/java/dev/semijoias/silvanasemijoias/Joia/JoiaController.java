@@ -1,5 +1,6 @@
 package dev.semijoias.silvanasemijoias.Joia;
 
+import dev.semijoias.silvanasemijoias.relatorios.RelatorioService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,9 +13,11 @@ import java.util.List;
 public class JoiaController {
 
     private final JoiaService joiaService;
+    private final RelatorioService relatorioService;
 
-    public JoiaController(JoiaService joiaService) {
+    public JoiaController(JoiaService joiaService, RelatorioService relatorioService) {
         this.joiaService = joiaService;
+        this.relatorioService = relatorioService;
     }
 
     @GetMapping
@@ -31,6 +34,11 @@ public class JoiaController {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @GetMapping("/relatorios")
+    public ResponseEntity<byte[]> buscarJoiasEsgotadas(){
+        return this.relatorioService.gerarRelatorioDeJoiasEsgotadas();
     }
 
     @PostMapping
