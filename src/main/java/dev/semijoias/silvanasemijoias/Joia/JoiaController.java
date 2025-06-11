@@ -41,6 +41,11 @@ public class JoiaController {
         return this.relatorioService.gerarRelatorioDeJoiasEsgotadas();
     }
 
+    @GetMapping("/relatoriosTipo")
+    public ResponseEntity<byte[]> gerarRelatorioDeJoiasPorTipo(@RequestParam String descricao) {
+        return this.relatorioService.gerarRelatorioDeJoiasPorTipo(descricao);
+    }
+
     @PostMapping
     public ResponseEntity<JoiaDTO> criarJoia(@RequestBody @Valid JoiaDTO JoiaDTO) {
         JoiaDTO joiaCriada = joiaService.cadastrarJoia(JoiaDTO);

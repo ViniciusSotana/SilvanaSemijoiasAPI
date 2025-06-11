@@ -4,6 +4,8 @@ import dev.semijoias.silvanasemijoias.Cliente.ClienteModel;
 import dev.semijoias.silvanasemijoias.Cliente.ClienteRepository;
 import dev.semijoias.silvanasemijoias.Joia.JoiaModel;
 import dev.semijoias.silvanasemijoias.Joia.JoiaRepository;
+import dev.semijoias.silvanasemijoias.TipoJoia.TipoModel;
+import dev.semijoias.silvanasemijoias.TipoJoia.TipoRepository;
 import dev.semijoias.silvanasemijoias.Vendedora.VendedoraModel;
 import dev.semijoias.silvanasemijoias.Vendedora.VendedoraRepository;
 import dev.semijoias.silvanasemijoias.utils.RelatorioUtils;
@@ -24,6 +26,7 @@ public class RelatorioService {
     private final ClienteRepository clienteRepository;
     private final VendedoraRepository vendedoraRepository;
     private final JoiaRepository joiaRepository;
+    private final TipoRepository tipoRepository;
 
     public ResponseEntity<byte[]> gerarRelatorioDeClientes() {
         List<ClienteModel> clientes = clienteRepository.findAllByOrderByValorTotalCompradoDesc();
@@ -64,6 +67,20 @@ public class RelatorioService {
         parametros.put("LISTA", new JRBeanCollectionDataSource(joiasEsgotadas));
 
         return RelatorioUtils.gerarRelatorioEmPDF("RelatorioJoiasEsgotadas", parametros);
+    }
+
+
+    public ResponseEntity<byte[]> gerarRelatorioDeJoiasPorTipo(String descricao) {
+        List<JoiaModel> joiasPorTipo = joiaRepository.findByTipoDescricao(descricao);
+
+        if (joiasPorTipo.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+
+        Map<String, Object> parametros = new HashMap<>();
+        parametros.put("LISTA", new JRBeanCollectionDataSource(joiasPorTipo));
+
+            return RelatorioUtils.gerarRelatorioEmPDF("RelatorioJoiasPorTipo", parametros);
     }
 
 }
