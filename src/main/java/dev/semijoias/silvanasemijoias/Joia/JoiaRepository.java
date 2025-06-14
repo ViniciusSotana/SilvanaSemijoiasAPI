@@ -9,4 +9,5 @@ public interface JoiaRepository extends JpaRepository<JoiaModel, Long> {
     List<JoiaModel> findByQuantidadeEstoque(int quantidadeEstoque);
 
     List<JoiaModel> findByTipoDescricao(String descricao);
+
 }
