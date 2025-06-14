@@ -11,6 +11,7 @@ import dev.semijoias.silvanasemijoias.Maleta.MaletaRepository;
 import dev.semijoias.silvanasemijoias.TipoJoia.TipoRepository;
 import dev.semijoias.silvanasemijoias.Vendedora.VendedoraModel;
 import dev.semijoias.silvanasemijoias.Vendedora.VendedoraRepository;
+import dev.semijoias.silvanasemijoias.utils.FileUtils;
 import dev.semijoias.silvanasemijoias.utils.RelatorioUtils;
 import lombok.AllArgsConstructor;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
@@ -43,7 +44,11 @@ public class RelatorioService {
         Map<String, Object> parametros = new HashMap<>();
         parametros.put("LISTA", new JRBeanCollectionDataSource(clientes));
 
-        return RelatorioUtils.gerarRelatorioEmPDF("RelatorioClientes", parametros);
+        byte[] pdfBytes = RelatorioUtils.gerarRelatorioEmPDF("RelatorioClientes", parametros).getBody();
+
+        FileUtils.salvarPDFNoDisco(pdfBytes, "RelatorioClientes");
+
+        return ResponseEntity.ok(pdfBytes);
     }
 
 
@@ -57,7 +62,11 @@ public class RelatorioService {
         Map<String, Object> parametros = new HashMap<>();
         parametros.put("LISTA", new JRBeanCollectionDataSource(vendedoras));
 
-        return RelatorioUtils.gerarRelatorioEmPDF("RelatorioVendedoras", parametros);
+        byte[] pdfBytes = RelatorioUtils.gerarRelatorioEmPDF("RelatorioVendedoras", parametros).getBody();
+
+        FileUtils.salvarPDFNoDisco(pdfBytes, "RelatorioVendedoras");
+
+        return ResponseEntity.ok(pdfBytes);
     }
 
 
@@ -71,7 +80,11 @@ public class RelatorioService {
         Map<String, Object> parametros = new HashMap<>();
         parametros.put("LISTA", new JRBeanCollectionDataSource(joiasEsgotadas));
 
-        return RelatorioUtils.gerarRelatorioEmPDF("RelatorioJoiasEsgotadas", parametros);
+        byte[] pdfBytes = RelatorioUtils.gerarRelatorioEmPDF("RelatorioJoiasEsgotadas", parametros).getBody();
+
+        FileUtils.salvarPDFNoDisco(pdfBytes, "RelatorioJoiasEsgotadas");
+
+        return ResponseEntity.ok(pdfBytes);
     }
 
 
@@ -85,7 +98,11 @@ public class RelatorioService {
         Map<String, Object> parametros = new HashMap<>();
         parametros.put("LISTA", new JRBeanCollectionDataSource(joiasPorTipo));
 
-            return RelatorioUtils.gerarRelatorioEmPDF("RelatorioJoiasPorTipo", parametros);
+        byte[] pdfBytes = RelatorioUtils.gerarRelatorioEmPDF("RelatorioJoiasPorTipo", parametros).getBody();
+
+        FileUtils.salvarPDFNoDisco(pdfBytes, "RelatorioJoiasPorTipo");
+
+        return ResponseEntity.ok(pdfBytes);
     }
 
 
@@ -129,7 +146,11 @@ public class RelatorioService {
         Map<String, Object> parametros = new HashMap<>();
         parametros.put("LISTA", new JRBeanCollectionDataSource(itensRelatorio));
 
-        return RelatorioUtils.gerarRelatorioEmPDF("RelatorioDeMaletaPorVendedora", parametros);
+        byte[] pdfBytes = RelatorioUtils.gerarRelatorioEmPDF("RelatorioDeMaletaPorVendedora", parametros).getBody();
+
+        FileUtils.salvarPDFNoDisco(pdfBytes, "RelatorioDeMaletaPorVendedora");
+
+        return ResponseEntity.ok(pdfBytes);
     }
 
 
