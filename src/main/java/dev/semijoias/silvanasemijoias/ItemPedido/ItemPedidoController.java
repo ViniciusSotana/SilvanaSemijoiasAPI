@@ -13,6 +13,7 @@ import java.util.List;
 @RestController
 @RequestMapping("itemPedido")
 @RequiredArgsConstructor
+@CrossOrigin
 public class ItemPedidoController {
 
     private final ItemPedidoService itemPedidoService;

@@ -9,6 +9,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/tipoJoias")
+@CrossOrigin
 public class TipoController {
 
     private final TipoService tipoService;

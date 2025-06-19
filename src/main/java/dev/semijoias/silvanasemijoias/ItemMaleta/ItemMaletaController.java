@@ -13,6 +13,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("itensMaleta")
+@CrossOrigin
 public class ItemMaletaController {
 
     private final ItemMaletaService itemMaletaService;

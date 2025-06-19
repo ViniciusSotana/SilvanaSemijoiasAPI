@@ -9,6 +9,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("maletas")
+@CrossOrigin
 public class MaletaController {
 
     private final MaletaService maletaService;

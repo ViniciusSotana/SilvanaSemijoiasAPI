@@ -11,6 +11,7 @@ import java.util.List;
 @RestController
 @RequestMapping("clientes")
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@CrossOrigin
 public class ClienteController {
 
     private final ClienteService clienteService;

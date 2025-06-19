@@ -9,6 +9,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("administradores")
+@CrossOrigin
 public class AdministradorController {
 
     private final AdministradorService administradorService;

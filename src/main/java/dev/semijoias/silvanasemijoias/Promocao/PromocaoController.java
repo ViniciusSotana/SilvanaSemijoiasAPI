@@ -10,6 +10,7 @@ import java.util.List;
 @RestController
 @RequestMapping("promocoes")
 @RequiredArgsConstructor
+@CrossOrigin
 public class PromocaoController {
 
     private final PromocaoService promocaoService;

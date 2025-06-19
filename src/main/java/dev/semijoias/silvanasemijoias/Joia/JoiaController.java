@@ -10,6 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("joias")
+@CrossOrigin
 public class JoiaController {
 
     private final JoiaService joiaService;
