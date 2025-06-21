@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class TipoMapper {
 
-    public TipoModel map(TipoDTO tipoDTO) {
+    public TipoModel map(TipoRequestDTO tipoDTO) {
         TipoModel tipoModel = new TipoModel();
         tipoModel.setId(tipoDTO.getId());
         tipoModel.setDescricao(tipoDTO.getDescricao());
@@ -16,8 +16,8 @@ public class TipoMapper {
         return tipoModel;
     }
 
-    public TipoDTO map(TipoModel tipoModel) {
-        TipoDTO tipoDTO = new TipoDTO();
+    public TipoRequestDTO map(TipoModel tipoModel) {
+        TipoRequestDTO tipoDTO = new TipoRequestDTO();
         tipoDTO.setId(tipoModel.getId());
         tipoDTO.setDescricao(tipoModel.getDescricao());
         tipoDTO.setQntVendida(tipoModel.getQntVendida());

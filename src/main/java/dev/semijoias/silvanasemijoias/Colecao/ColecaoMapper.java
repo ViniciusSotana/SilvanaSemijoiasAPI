@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class ColecaoMapper {
 
-    public ColecaoModel map(ColecaoDTO colecaoDTO) {
+    public ColecaoModel map(ColecaoRequestDTO colecaoDTO) {
         ColecaoModel colecaoModel = new ColecaoModel();
         colecaoModel.setId(colecaoDTO.getId());
         colecaoModel.setNome(colecaoDTO.getNome());
@@ -14,8 +14,8 @@ public class ColecaoMapper {
         return colecaoModel;
     }
 
-    public ColecaoDTO map(ColecaoModel tipoModel) {
-        ColecaoDTO colecaoDTO = new ColecaoDTO();
+    public ColecaoRequestDTO map(ColecaoModel tipoModel) {
+        ColecaoRequestDTO colecaoDTO = new ColecaoRequestDTO();
         colecaoDTO.setId(tipoModel.getId());
         colecaoDTO.setNome(tipoModel.getNome());
         colecaoDTO.setJoias(tipoModel.getJoias());

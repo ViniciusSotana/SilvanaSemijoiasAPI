@@ -19,14 +19,14 @@ public class TipoController {
     }
 
     @GetMapping
-    public ResponseEntity<List<TipoDTO>> listarTipos() {
-        List<TipoDTO> tipos = tipoService.listarTipos();
+    public ResponseEntity<List<TipoRequestDTO>> listarTipos() {
+        List<TipoRequestDTO> tipos = tipoService.listarTipos();
         return ResponseEntity.ok(tipos);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<TipoDTO> buscarPorId(@PathVariable Long id) {
-        TipoDTO tipo = tipoService.buscarPorId(id);
+    public ResponseEntity<TipoRequestDTO> buscarPorId(@PathVariable Long id) {
+        TipoRequestDTO tipo = tipoService.buscarPorId(id);
         if (tipo != null) {
             return ResponseEntity.ok(tipo);
         } else {
@@ -35,14 +35,14 @@ public class TipoController {
     }
 
     @PostMapping
-    public ResponseEntity<TipoDTO> criarTipo(@RequestBody @Valid TipoDTO tipoDTO) {
-        TipoDTO tipoCriado = tipoService.cadastrarTipo(tipoDTO);
+    public ResponseEntity<TipoRequestDTO> criarTipo(@RequestBody @Valid TipoRequestDTO tipoDTO) {
+        TipoRequestDTO tipoCriado = tipoService.cadastrarTipo(tipoDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(tipoCriado);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<TipoDTO> atualizarTipo(@PathVariable Long id, @RequestBody @Valid TipoDTO tipoDTO) {
-        TipoDTO tipoAtualizado = tipoService.atualizarTipo(id, tipoDTO);
+    public ResponseEntity<TipoRequestDTO> atualizarTipo(@PathVariable Long id, @RequestBody @Valid TipoRequestDTO tipoDTO) {
+        TipoRequestDTO tipoAtualizado = tipoService.atualizarTipo(id, tipoDTO);
         if (tipoAtualizado != null) {
             return ResponseEntity.ok(tipoAtualizado);
         } else {

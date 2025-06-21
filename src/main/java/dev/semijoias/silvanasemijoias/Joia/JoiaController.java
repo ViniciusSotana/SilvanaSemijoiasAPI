@@ -22,14 +22,14 @@ public class JoiaController {
     }
 
     @GetMapping
-    public ResponseEntity<List<JoiaDTO>> listarJoias() {
-        List<JoiaDTO> joias = joiaService.listarJoia();
+    public ResponseEntity<List<JoiaResponseDTO>> listarJoias() {
+        List<JoiaResponseDTO> joias = joiaService.buscarTodas();
         return ResponseEntity.ok(joias);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<JoiaDTO> buscarPorId(@PathVariable Long id) {
-        JoiaDTO joia = joiaService.buscarPorId(id);
+    public ResponseEntity<JoiaRequestDTO> buscarPorId(@PathVariable Long id) {
+        JoiaRequestDTO joia = joiaService.buscarPorId(id);
         if (joia != null) {
             return ResponseEntity.ok(joia);
         } else {
@@ -48,14 +48,14 @@ public class JoiaController {
     }
 
     @PostMapping
-    public ResponseEntity<JoiaDTO> criarJoia(@RequestBody @Valid JoiaDTO JoiaDTO) {
-        JoiaDTO joiaCriada = joiaService.cadastrarJoia(JoiaDTO);
+    public ResponseEntity<JoiaRequestDTO> criarJoia(@RequestBody @Valid JoiaRequestDTO JoiaDTO) {
+        JoiaRequestDTO joiaCriada = joiaService.cadastrarJoia(JoiaDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(joiaCriada);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<JoiaDTO> atualizarJoia(@PathVariable Long id, @RequestBody @Valid JoiaDTO JoiaDTO) {
-        JoiaDTO joiaAtualizada = joiaService.atualizarJoia(id, JoiaDTO);
+    public ResponseEntity<JoiaRequestDTO> atualizarJoia(@PathVariable Long id, @RequestBody @Valid JoiaRequestDTO JoiaDTO) {
+        JoiaRequestDTO joiaAtualizada = joiaService.atualizarJoia(id, JoiaDTO);
         if (joiaAtualizada != null) {
             return ResponseEntity.ok(joiaAtualizada);
         } else {

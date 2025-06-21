@@ -2,6 +2,8 @@ package dev.semijoias.silvanasemijoias.Joia;
 
 import dev.semijoias.silvanasemijoias.Colecao.ColecaoModel;
 import dev.semijoias.silvanasemijoias.Colecao.ColecaoRepository;
+import dev.semijoias.silvanasemijoias.Colecao.ColecaoResponseDTO;
+import dev.semijoias.silvanasemijoias.TipoJoia.TipoJoiaResponseDTO;
 import dev.semijoias.silvanasemijoias.TipoJoia.TipoModel;
 import dev.semijoias.silvanasemijoias.TipoJoia.TipoRepository;
 import org.springframework.http.HttpStatus;
@@ -28,27 +30,29 @@ public class JoiaService {
         this.colecaoRepository = colecaoRepository;
     }
 
-    public List<JoiaDTO> listarJoia() {
-        List<JoiaModel> joias = joiaRepository.findAll();
-        return joias.stream()
-                .map(joiaMapper::map)
+    public List<JoiaResponseDTO> buscarTodas() {
+        List<JoiaModel> joiasDoBanco = joiaRepository.findAll(); // ou sua query com JOIN FETCH
+
+        // Converte cada JoiaModel para JoiaResponseDTO
+        return joiasDoBanco.stream()
+                .map(this::converterParaResponseDTO)
                 .collect(Collectors.toList());
     }
 
-    public JoiaDTO buscarPorId(Long id) {
+    public JoiaRequestDTO buscarPorId(Long id) {
         Optional<JoiaModel> joia = joiaRepository.findById(id);
         return joia.map(joiaMapper::map).orElse(null);
     }
 
-    public JoiaDTO cadastrarJoia(JoiaDTO joiaDTO) {
-        JoiaModel joia = joiaMapper.map(joiaDTO);
+    public JoiaRequestDTO cadastrarJoia(JoiaRequestDTO joiaRequestDTO) {
+        JoiaModel joia = joiaMapper.map(joiaRequestDTO);
 
-        ColecaoModel colecao = colecaoRepository.findById(joiaDTO.getColecaoId())
+        ColecaoModel colecao = colecaoRepository.findById(joiaRequestDTO.getColecaoId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,"Coleção não encontrada"));
         joia.setColecao(colecao);
         colecao.getJoias().add(joia);
 
-        TipoModel tipo = tipoRepository.findById(joiaDTO.getTipoId())
+        TipoModel tipo = tipoRepository.findById(joiaRequestDTO.getTipoId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Tipo não encontrado"));
         joia.setTipo(tipo);
         tipo.getJoias().add(joia);
@@ -58,7 +62,7 @@ public class JoiaService {
     }
 
 
-    public JoiaDTO atualizarJoia(Long id, JoiaDTO joiaDTO) {
+    public JoiaRequestDTO atualizarJoia(Long id, JoiaRequestDTO joiaRequestDTO) {
         Optional<JoiaModel> joia = joiaRepository.findById(id);
         if(joia.isPresent()){
             JoiaModel joiaExistente = joia.get();
@@ -73,17 +77,17 @@ public class JoiaService {
                 joiaExistente.getTipo().getJoias().remove(joiaExistente);
             }
 
-            joiaExistente.setValorOriginal(joiaDTO.getValorOriginal());
-            joiaExistente.setQuantidadeEstoque(joiaDTO.getQuantidadeEstoque());
-            joiaExistente.setQuantidadeVendida(joiaDTO.getQuantidadeVendida());
-            joiaExistente.setImagens(joiaDTO.getImagens());
+            joiaExistente.setValorOriginal(joiaRequestDTO.getValorOriginal());
+            joiaExistente.setQuantidadeEstoque(joiaRequestDTO.getQuantidadeEstoque());
+            joiaExistente.setQuantidadeVendida(joiaRequestDTO.getQuantidadeVendida());
+            joiaExistente.setImagens(joiaRequestDTO.getImagens());
 
 
-            ColecaoModel colecao = colecaoRepository.findById(joiaDTO.getColecaoId())
+            ColecaoModel colecao = colecaoRepository.findById(joiaRequestDTO.getColecaoId())
                     .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,"Coleção não encontrada"));
             joiaExistente.setColecao(colecao);
 
-            TipoModel tipo = tipoRepository.findById(joiaDTO.getTipoId())
+            TipoModel tipo = tipoRepository.findById(joiaRequestDTO.getTipoId())
                     .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Tipo não encontrado"));
             joiaExistente.setTipo(tipo);
 
@@ -114,5 +118,29 @@ public class JoiaService {
         joiaRepository.delete(joia);
     }
 
+    private JoiaResponseDTO converterParaResponseDTO(JoiaModel joia) {
+        JoiaResponseDTO dto = new JoiaResponseDTO();
+        dto.setId(joia.getId());
+        dto.setValorVenda(joia.getValorVenda());
+        dto.setQuantidadeEstoque(joia.getQuantidadeEstoque());
+        dto.setImagens(joia.getImagens());
+
+        // Converte os objetos aninhados
+        if (joia.getTipo() != null) {
+            TipoJoiaResponseDTO tipoDTO = new TipoJoiaResponseDTO();
+            tipoDTO.setId(joia.getTipo().getId());
+            tipoDTO.setDescricao(joia.getTipo().getDescricao());
+            dto.setTipoJoia(tipoDTO);
+        }
+
+        if (joia.getColecao() != null) {
+            ColecaoResponseDTO colecaoDTO = new ColecaoResponseDTO();
+            colecaoDTO.setId(joia.getColecao().getId());
+            colecaoDTO.setNome(joia.getColecao().getNome());
+            dto.setColecao(colecaoDTO);
+        }
+
+        return dto;
+    }
 
 }

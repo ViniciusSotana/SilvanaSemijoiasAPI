@@ -17,9 +17,7 @@ public class MaletaDTO {
     private VendedoraModel vendedora;
     @NotNull(message = "Status obrigatorio")
     private String status;
-    @NotNull(message = "Data de entrega obrigatorio")
     private LocalDate dataEntrega;
-    @NotNull(message = "Data de devolucao obrigatorio")
     private LocalDate dataDevolucao;
 
 

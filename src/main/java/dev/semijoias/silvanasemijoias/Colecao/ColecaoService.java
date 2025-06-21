@@ -17,26 +17,26 @@ public class ColecaoService {
         this.colecaoMapper = colecaoMapper;
     }
 
-    public List<ColecaoDTO> listarColecoes() {
+    public List<ColecaoRequestDTO> listarColecoes() {
         List<ColecaoModel> colecoes = colecaoRepository.findAll();
         return colecoes.stream()
                 .map(colecaoMapper::map)
                 .collect(Collectors.toList());
     }
 
-    public ColecaoDTO buscarPorId(Long id) {
+    public ColecaoRequestDTO buscarPorId(Long id) {
         Optional<ColecaoModel> colecao = colecaoRepository.findById(id);
         return colecao.map(colecaoMapper::map).orElse(null);
     }
 
-    public ColecaoDTO cadastrarColecao(ColecaoDTO colecaoDTO) {
+    public ColecaoRequestDTO cadastrarColecao(ColecaoRequestDTO colecaoDTO) {
         ColecaoModel colecao = colecaoMapper.map(colecaoDTO);
         ColecaoModel salvo = colecaoRepository.save(colecao);
         return colecaoMapper.map(salvo);
     }
 
 
-    public ColecaoDTO atualizarColecao(Long id, ColecaoDTO colecaoDTO) {
+    public ColecaoRequestDTO atualizarColecao(Long id, ColecaoRequestDTO colecaoDTO) {
         ColecaoModel colecao = colecaoRepository.findById(id)
                 .orElse(null);
 

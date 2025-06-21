@@ -1,4 +1,4 @@
-package dev.semijoias.silvanasemijoias.Colecao;
+package dev.semijoias.silvanasemijoias.TipoJoia;
 
 import dev.semijoias.silvanasemijoias.Joia.JoiaModel;
 import jakarta.validation.constraints.NotBlank;
@@ -13,12 +13,14 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ColecaoDTO {
+public class TipoRequestDTO {
 
     private Long id;
-    @NotBlank(message = "Nome obrigatorio")
-    private String nome;
-    @NotNull(message = "Campo joias obrigatorio")
+    @NotBlank(message = "Descricao obrigatoria")
+    private String descricao;
+    @NotNull(message = "Quantidade vendida obrigatoria")
+    private Integer qntVendida;
+    @NotNull(message = "Campo joia obrigatorio")
     private List<JoiaModel> joias = new ArrayList<>();
 
 }

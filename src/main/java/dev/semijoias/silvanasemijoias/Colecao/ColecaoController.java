@@ -19,14 +19,14 @@ public class ColecaoController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ColecaoDTO>> listarColecao() {
-        List<ColecaoDTO> colecoes = colecaoService.listarColecoes();
+    public ResponseEntity<List<ColecaoRequestDTO>> listarColecao() {
+        List<ColecaoRequestDTO> colecoes = colecaoService.listarColecoes();
         return ResponseEntity.ok(colecoes);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ColecaoDTO> buscarPorId(@PathVariable Long id) {
-        ColecaoDTO colecao = colecaoService.buscarPorId(id);
+    public ResponseEntity<ColecaoRequestDTO> buscarPorId(@PathVariable Long id) {
+        ColecaoRequestDTO colecao = colecaoService.buscarPorId(id);
         if (colecao != null) {
             return ResponseEntity.ok(colecao);
         } else {
@@ -35,14 +35,14 @@ public class ColecaoController {
     }
 
     @PostMapping
-    public ResponseEntity<ColecaoDTO> criarColecao(@RequestBody @Valid ColecaoDTO ColecaoDTO) {
-        ColecaoDTO colecaoCriada = colecaoService.cadastrarColecao(ColecaoDTO);
+    public ResponseEntity<ColecaoRequestDTO> criarColecao(@RequestBody @Valid ColecaoRequestDTO ColecaoDTO) {
+        ColecaoRequestDTO colecaoCriada = colecaoService.cadastrarColecao(ColecaoDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(colecaoCriada);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ColecaoDTO> atualizarColecao(@PathVariable Long id, @RequestBody @Valid ColecaoDTO ColecaoDTO) {
-        ColecaoDTO colecaoAtualizada = colecaoService.atualizarColecao(id, ColecaoDTO);
+    public ResponseEntity<ColecaoRequestDTO> atualizarColecao(@PathVariable Long id, @RequestBody @Valid ColecaoRequestDTO ColecaoDTO) {
+        ColecaoRequestDTO colecaoAtualizada = colecaoService.atualizarColecao(id, ColecaoDTO);
         if (colecaoAtualizada != null) {
             return ResponseEntity.ok(colecaoAtualizada);
         } else {

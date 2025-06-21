@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class JoiaMapper {
     
-    public JoiaModel map(JoiaDTO joiaDTO){
+    public JoiaModel map(JoiaRequestDTO joiaDTO){
         JoiaModel joiaModel = new JoiaModel();
         joiaModel.setId(joiaDTO.getId());
         joiaModel.setValorOriginal(joiaDTO.getValorOriginal());
@@ -17,8 +17,8 @@ public class JoiaMapper {
         return joiaModel;
     }
 
-    public JoiaDTO map(JoiaModel joiaModel) {
-        JoiaDTO joiaDTO = new JoiaDTO();
+    public JoiaRequestDTO map(JoiaModel joiaModel) {
+        JoiaRequestDTO joiaDTO = new JoiaRequestDTO();
         joiaDTO.setId(joiaModel.getId());
         joiaDTO.setValorOriginal(joiaModel.getValorOriginal());
         joiaDTO.setValorVenda(joiaModel.getValorVenda());

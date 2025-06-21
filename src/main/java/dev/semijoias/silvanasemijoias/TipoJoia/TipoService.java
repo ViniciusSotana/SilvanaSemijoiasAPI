@@ -17,26 +17,26 @@ public class TipoService {
         this.tipoMapper = tipoMapper;
     }
 
-    public List<TipoDTO> listarTipos() {
+    public List<TipoRequestDTO> listarTipos() {
         List<TipoModel> tipos = tipoRepository.findAll();
         return tipos.stream()
                 .map(tipoMapper::map)
                 .collect(Collectors.toList());
     }
 
-    public TipoDTO buscarPorId(Long id) {
+    public TipoRequestDTO buscarPorId(Long id) {
         Optional<TipoModel> tipo = tipoRepository.findById(id);
         return tipo.map(tipoMapper::map).orElse(null);
     }
 
-    public TipoDTO cadastrarTipo(TipoDTO tipoDTO) {
+    public TipoRequestDTO cadastrarTipo(TipoRequestDTO tipoDTO) {
         TipoModel tipo = tipoMapper.map(tipoDTO);
         TipoModel salvo = tipoRepository.save(tipo);
         return tipoMapper.map(salvo);
     }
 
 
-    public TipoDTO atualizarTipo(Long id, TipoDTO tipoDTO) {
+    public TipoRequestDTO atualizarTipo(Long id, TipoRequestDTO tipoDTO) {
         Optional<TipoModel> tipo = tipoRepository.findById(id);
         if(tipo.isPresent()){
             TipoModel tipoExistente = tipo.get();

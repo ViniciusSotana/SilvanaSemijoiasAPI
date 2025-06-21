@@ -15,7 +15,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class JoiaDTO {
+public class JoiaRequestDTO {
 
     private Long id;
     @NotNull(message = "Campo valor unitario é obrigatorio")
