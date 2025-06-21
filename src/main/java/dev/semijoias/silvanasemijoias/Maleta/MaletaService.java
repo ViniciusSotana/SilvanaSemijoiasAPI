@@ -10,29 +10,28 @@ import java.util.stream.Collectors;
 public class MaletaService {
 
     private final MaletaRepository maletaRepository;
-    private final MaletaMapper maletaMapper;
 
-    public MaletaService(MaletaRepository maletaRepository, MaletaMapper maletaMapper) {
+
+    public MaletaService(MaletaRepository maletaRepository) {
         this.maletaRepository = maletaRepository;
-        this.maletaMapper = maletaMapper;
     }
 
     public List<MaletaDTO> listarMaletas() {
         List<MaletaModel> maletas = maletaRepository.findAll();
         return maletas.stream()
-                .map(maletaMapper::map)
+                .map(MaletaMapper::map)
                 .collect(Collectors.toList());
     }
 
     public MaletaDTO buscarPorId(Long id) {
         Optional<MaletaModel> maleta = maletaRepository.findById(id);
-        return maleta.map(maletaMapper::map).orElse(null);
+        return maleta.map(MaletaMapper::map).orElse(null);
     }
 
     public MaletaDTO cadastrarMaleta(MaletaDTO maletaDTO) {
-        MaletaModel maleta = maletaMapper.map(maletaDTO);
+        MaletaModel maleta = MaletaMapper.map(maletaDTO);
         MaletaModel salvo = maletaRepository.save(maleta);
-        return maletaMapper.map(salvo);
+        return MaletaMapper.map(salvo);
     }
 
     public MaletaDTO atualizarMaleta(Long id, MaletaDTO maletaDTO) {
@@ -47,7 +46,7 @@ public class MaletaService {
 
 
             MaletaModel atualizado = maletaRepository.save(maletaExistente);
-            return maletaMapper.map(atualizado);
+            return MaletaMapper.map(atualizado);
         }
         return null;
     }

@@ -13,7 +13,6 @@ public class VendedoraMapper {
         vendedoraModel.setNome(vendedoraDTO.getNome());
         vendedoraModel.setCpf(vendedoraDTO.getCpf());
         vendedoraModel.setEmail(vendedoraDTO.getEmail());
-        vendedoraModel.setSenha(vendedoraDTO.getSenha());
         vendedoraModel.setEndereco(vendedoraDTO.getEndereco());
         vendedoraModel.setTipoUsuario(TipoUsuario.VENDEDORA);
         vendedoraModel.setTelefone(vendedoraDTO.getTelefone());
@@ -27,7 +26,6 @@ public class VendedoraMapper {
         vendedoraDTO.setNome(vendedoraModel.getNome());
         vendedoraDTO.setCpf(vendedoraModel.getCpf());
         vendedoraDTO.setEmail(vendedoraModel.getEmail());
-        vendedoraDTO.setSenha(vendedoraModel.getSenha());
         vendedoraDTO.setEndereco(vendedoraModel.getEndereco());
         vendedoraDTO.setTipoUsuario(TipoUsuario.VENDEDORA);
         vendedoraDTO.setTelefone(vendedoraModel.getTelefone());

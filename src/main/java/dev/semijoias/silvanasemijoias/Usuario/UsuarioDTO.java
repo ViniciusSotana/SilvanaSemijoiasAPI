@@ -21,9 +21,6 @@ public class UsuarioDTO {
     private String cpf;
     @Email(message = "O campo email deve ser valido")
     private String email;
-    @NotBlank(message = "Senha precisa ter no minimo seis digitos")
-    @Size(min = 6, max = 128, message = "Senha precisa ter no minimo seis digitos")
-    private String senha;
     @NotBlank(message = "O endereço é obrigatório")
     private String endereco;
     private TipoUsuario tipoUsuario;

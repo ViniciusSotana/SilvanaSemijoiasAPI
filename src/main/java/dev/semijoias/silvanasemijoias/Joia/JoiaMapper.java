@@ -1,11 +1,13 @@
 package dev.semijoias.silvanasemijoias.Joia;
 
+import dev.semijoias.silvanasemijoias.Colecao.ColecaoMapper;
+import dev.semijoias.silvanasemijoias.TipoJoia.TipoMapper;
 import org.springframework.stereotype.Component;
 
 @Component
 public class JoiaMapper {
     
-    public JoiaModel map(JoiaRequestDTO joiaDTO){
+    public static JoiaModel map(JoiaRequestDTO joiaDTO){
         JoiaModel joiaModel = new JoiaModel();
         joiaModel.setId(joiaDTO.getId());
         joiaModel.setValorOriginal(joiaDTO.getValorOriginal());
@@ -17,7 +19,7 @@ public class JoiaMapper {
         return joiaModel;
     }
 
-    public JoiaRequestDTO map(JoiaModel joiaModel) {
+    public static JoiaRequestDTO map(JoiaModel joiaModel) {
         JoiaRequestDTO joiaDTO = new JoiaRequestDTO();
         joiaDTO.setId(joiaModel.getId());
         joiaDTO.setValorOriginal(joiaModel.getValorOriginal());
@@ -36,5 +38,18 @@ public class JoiaMapper {
 
         return joiaDTO;
     }
+
+    public static JoiaResponseDTO mapResponse(JoiaModel joiaModel) {
+        return new JoiaResponseDTO(
+                joiaModel.getId(),
+                joiaModel.getValorVenda(),
+                joiaModel.getQuantidadeEstoque(),
+                joiaModel.getImagens(),
+                TipoMapper.mapResponse(joiaModel.getTipo()),
+                ColecaoMapper.mapResponse(joiaModel.getColecao())
+        );
+    }
+
+
     
 }

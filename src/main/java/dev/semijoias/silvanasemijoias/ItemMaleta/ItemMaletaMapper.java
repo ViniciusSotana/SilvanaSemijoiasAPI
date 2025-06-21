@@ -1,35 +1,56 @@
 package dev.semijoias.silvanasemijoias.ItemMaleta;
 
+import dev.semijoias.silvanasemijoias.Joia.JoiaMapper;
 import dev.semijoias.silvanasemijoias.Joia.JoiaModel;
+import dev.semijoias.silvanasemijoias.Joia.JoiaRepository;
+import dev.semijoias.silvanasemijoias.Maleta.MaletaMapper;
 import dev.semijoias.silvanasemijoias.Maleta.MaletaModel;
 import org.springframework.stereotype.Component;
 
 @Component
 public class ItemMaletaMapper {
 
-    public ItemMaletaModel map(ItemMaletaDTO itemMaletaDTO) {
+    private final JoiaRepository joiaRepo;
+
+    public ItemMaletaMapper(JoiaRepository joiaRepo) {
+        this.joiaRepo = joiaRepo;
+    }
+
+    private JoiaModel buscarJoia(Long id) {
+        return this.joiaRepo.findById(id).orElseThrow(() -> new RuntimeException("Joia nao encontrada"));
+    }
+
+
+    public static ItemMaletaModel map(ItemMaletaDTO itemMaletaDTO, JoiaModel joiaModel, MaletaModel maletaModel) {
         ItemMaletaModel itemMaletaModel = new ItemMaletaModel();
+
         itemMaletaModel.setId(itemMaletaDTO.getId());
         itemMaletaModel.setQuantidade(itemMaletaDTO.getQuantidade());
         itemMaletaModel.setPrecoSugerido(itemMaletaDTO.getPrecoSugerido());
         itemMaletaModel.setDataInsercao(itemMaletaDTO.getDataInsercao());
 
-        MaletaModel maleta = new MaletaModel();
-        maleta.setId(itemMaletaDTO.getMaletaId());
-        itemMaletaModel.setMaleta(maleta);
-
-        JoiaModel joia = new JoiaModel();
-        joia.setId(itemMaletaDTO.getJoiaId());
-        itemMaletaModel.setJoia(joia);
+        itemMaletaModel.setJoia(joiaModel);
+        itemMaletaModel.setMaleta(maletaModel);
 
         return itemMaletaModel;
     }
 
-    public ItemMaletaDTO map(ItemMaletaModel itemMaletaModel) {
+    public static ItemMaletaDTO map(ItemMaletaModel itemMaletaModel) {
         ItemMaletaDTO itemMaletaDTO = new ItemMaletaDTO();
         itemMaletaDTO.setId(itemMaletaModel.getId());
-        itemMaletaDTO.setMaletaId(itemMaletaModel.getMaleta().getId());
         itemMaletaDTO.setJoiaId(itemMaletaModel.getJoia().getId());
+        itemMaletaDTO.setMaletaId(itemMaletaModel.getMaleta().getId());
+        itemMaletaDTO.setQuantidade(itemMaletaModel.getQuantidade());
+        itemMaletaDTO.setPrecoSugerido(itemMaletaModel.getPrecoSugerido());
+        itemMaletaDTO.setDataInsercao(itemMaletaModel.getDataInsercao());
+
+        return itemMaletaDTO;
+    }
+
+    public static ItemMaletaAtualizadoDTO mapResponse(ItemMaletaModel itemMaletaModel) {
+        ItemMaletaAtualizadoDTO itemMaletaDTO = new ItemMaletaAtualizadoDTO();
+        itemMaletaDTO.setId(itemMaletaModel.getId());
+        itemMaletaDTO.setJoia(JoiaMapper.mapResponse(itemMaletaModel.getJoia()));
         itemMaletaDTO.setQuantidade(itemMaletaModel.getQuantidade());
         itemMaletaDTO.setPrecoSugerido(itemMaletaModel.getPrecoSugerido());
         itemMaletaDTO.setDataInsercao(itemMaletaModel.getDataInsercao());

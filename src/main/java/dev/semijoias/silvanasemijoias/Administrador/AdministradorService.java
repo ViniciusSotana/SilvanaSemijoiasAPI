@@ -44,7 +44,6 @@ public class AdministradorService {
             admExistente.setNome(administradorDTO.getNome());
             admExistente.setEmail(administradorDTO.getEmail());
             admExistente.setTelefone(administradorDTO.getTelefone());
-            admExistente.setSenha(administradorDTO.getSenha());
             admExistente.setCpf(administradorDTO.getCpf());
             admExistente.setCargo(administradorDTO.getCargo());
             admExistente.setEndereco(administradorDTO.getEndereco());

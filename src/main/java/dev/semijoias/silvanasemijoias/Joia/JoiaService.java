@@ -18,14 +18,12 @@ import java.util.stream.Collectors;
 public class JoiaService {
 
     private final JoiaRepository joiaRepository;
-    private final JoiaMapper joiaMapper;
     private final TipoRepository tipoRepository;
     private final ColecaoRepository colecaoRepository;
 
 
-    public JoiaService(JoiaRepository joiaRepository, JoiaMapper joiaMapper, TipoRepository tipoRepository, ColecaoRepository colecaoRepository) {
+    public JoiaService(JoiaRepository joiaRepository, TipoRepository tipoRepository, ColecaoRepository colecaoRepository) {
         this.joiaRepository = joiaRepository;
-        this.joiaMapper = joiaMapper;
         this.tipoRepository = tipoRepository;
         this.colecaoRepository = colecaoRepository;
     }
@@ -41,11 +39,11 @@ public class JoiaService {
 
     public JoiaRequestDTO buscarPorId(Long id) {
         Optional<JoiaModel> joia = joiaRepository.findById(id);
-        return joia.map(joiaMapper::map).orElse(null);
+        return joia.map(JoiaMapper::map).orElse(null);
     }
 
     public JoiaRequestDTO cadastrarJoia(JoiaRequestDTO joiaRequestDTO) {
-        JoiaModel joia = joiaMapper.map(joiaRequestDTO);
+        JoiaModel joia = JoiaMapper.map(joiaRequestDTO);
 
         ColecaoModel colecao = colecaoRepository.findById(joiaRequestDTO.getColecaoId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,"Coleção não encontrada"));
@@ -58,7 +56,7 @@ public class JoiaService {
         tipo.getJoias().add(joia);
 
         JoiaModel salvo = joiaRepository.save(joia);
-        return joiaMapper.map(salvo);
+        return JoiaMapper.map(salvo);
     }
 
 
@@ -101,7 +99,7 @@ public class JoiaService {
 
             JoiaModel atualizado = joiaRepository.save(joiaExistente);
 
-            return joiaMapper.map(atualizado);
+            return JoiaMapper.map(atualizado);
         }
         return null;
     }
@@ -125,7 +123,6 @@ public class JoiaService {
         dto.setQuantidadeEstoque(joia.getQuantidadeEstoque());
         dto.setImagens(joia.getImagens());
 
-        // Converte os objetos aninhados
         if (joia.getTipo() != null) {
             TipoJoiaResponseDTO tipoDTO = new TipoJoiaResponseDTO();
             tipoDTO.setId(joia.getTipo().getId());

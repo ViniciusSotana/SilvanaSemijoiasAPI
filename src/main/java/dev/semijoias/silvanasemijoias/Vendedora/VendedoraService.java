@@ -69,7 +69,6 @@ public class VendedoraService {
             vendedoraExistente.setNome(vendedoraDTO.getNome());
             vendedoraExistente.setCpf(vendedoraDTO.getCpf());
             vendedoraExistente.setEmail(vendedoraDTO.getEmail());
-            vendedoraExistente.setSenha(vendedoraDTO.getSenha());
             vendedoraExistente.setEndereco(vendedoraDTO.getEndereco());
             vendedoraExistente.setTipoUsuario(vendedoraDTO.getTipoUsuario());
             vendedoraExistente.setComissao(vendedoraDTO.getComissao());

@@ -12,7 +12,6 @@ public class AdministradorMapper {
         administradorModel.setNome(administradorDTO.getNome());
         administradorModel.setEmail(administradorDTO.getEmail());
         administradorModel.setTelefone(administradorDTO.getTelefone());
-        administradorModel.setSenha(administradorDTO.getSenha());
         administradorModel.setCpf(administradorDTO.getCpf());
         administradorModel.setCargo(administradorDTO.getCargo());
         administradorModel.setEndereco(administradorDTO.getEndereco());
@@ -28,7 +27,6 @@ public class AdministradorMapper {
         administradorDTO.setNome(administradorModel.getNome());
         administradorDTO.setEmail(administradorModel.getEmail());
         administradorDTO.setTelefone(administradorModel.getTelefone());
-        administradorDTO.setSenha(administradorModel.getSenha());
         administradorDTO.setCpf(administradorModel.getCpf());
         administradorDTO.setCargo(administradorModel.getCargo());
         administradorDTO.setEndereco(administradorModel.getEndereco());

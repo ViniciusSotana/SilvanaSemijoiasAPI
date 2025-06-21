@@ -10,29 +10,27 @@ import java.util.stream.Collectors;
 public class TipoService {
 
     private final TipoRepository tipoRepository;
-    private final TipoMapper tipoMapper;
 
-    public TipoService(TipoRepository tipoRepository, TipoMapper tipoMapper) {
+    public TipoService(TipoRepository tipoRepository) {
         this.tipoRepository = tipoRepository;
-        this.tipoMapper = tipoMapper;
     }
 
     public List<TipoRequestDTO> listarTipos() {
         List<TipoModel> tipos = tipoRepository.findAll();
         return tipos.stream()
-                .map(tipoMapper::map)
+                .map(TipoMapper::map)
                 .collect(Collectors.toList());
     }
 
     public TipoRequestDTO buscarPorId(Long id) {
         Optional<TipoModel> tipo = tipoRepository.findById(id);
-        return tipo.map(tipoMapper::map).orElse(null);
+        return tipo.map(TipoMapper::map).orElse(null);
     }
 
     public TipoRequestDTO cadastrarTipo(TipoRequestDTO tipoDTO) {
-        TipoModel tipo = tipoMapper.map(tipoDTO);
+        TipoModel tipo = TipoMapper.map(tipoDTO);
         TipoModel salvo = tipoRepository.save(tipo);
-        return tipoMapper.map(salvo);
+        return TipoMapper.map(salvo);
     }
 
 
@@ -46,7 +44,7 @@ public class TipoService {
 
             TipoModel atualizado = tipoRepository.save(tipoExistente);
 
-            return tipoMapper.map(atualizado);
+            return TipoMapper.map(atualizado);
         }
         return null;
     }

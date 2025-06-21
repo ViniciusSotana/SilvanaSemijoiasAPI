@@ -20,7 +20,6 @@ public class ClienteMapper {
         dto.setNumeroDePedidos(model.getNumeroDePedidos());
         dto.setDataCadastro(model.getDataCadastro());
         dto.setPedidos(model.getPedidos());
-        dto.setSenha(model.getSenha());
         dto.setTipoUsuario(TipoUsuario.CLIENTE);
 
         return dto;
@@ -37,7 +36,6 @@ public class ClienteMapper {
         model.setValorTotalComprado(dto.getValorTotalComprado());
         model.setNumeroDePedidos(dto.getNumeroDePedidos());
         model.setDataCadastro(dto.getDataCadastro());
-        model.setSenha(dto.getSenha());
         model.setTipoUsuario(TipoUsuario.CLIENTE);
 
         return model;

@@ -32,12 +32,6 @@ public class ItemMaletaController {
         return ResponseEntity.ok(itens);
     }
 
-    @GetMapping("maletas/{maletaId}")
-    public ResponseEntity<List<ItemMaletaDTO>> listarPorMaleta(@PathVariable Long maletaId) {
-        List<ItemMaletaDTO> itens = itemMaletaService.listarPorMaleta(maletaId);
-        return ResponseEntity.ok(itens);
-    }
-
     @GetMapping("/{id}")
     public ResponseEntity<ItemMaletaDTO> buscarPorId(@PathVariable Long id) {
         ItemMaletaDTO item = itemMaletaService.buscarPorId(id);
@@ -62,9 +56,9 @@ public class ItemMaletaController {
         return ResponseEntity.ok(salvo);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<ItemMaletaDTO> atualizar(@PathVariable Long id, @Valid @RequestBody ItemMaletaDTO dto) {
-        ItemMaletaDTO atualizado = itemMaletaService.atualizarItemMaleta(id, dto);
+    @PutMapping()
+    public ResponseEntity<ItemMaletaDTO> atualizar(@Valid @RequestBody ItemMaletaDTO dto) {
+        ItemMaletaDTO atualizado = itemMaletaService.atualizarItemMaleta(dto);
         return ResponseEntity.ok(atualizado);
     }
 

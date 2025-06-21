@@ -10,29 +10,27 @@ import java.util.stream.Collectors;
 public class ColecaoService {
 
     private final ColecaoRepository colecaoRepository;
-    private final ColecaoMapper colecaoMapper;
 
-    public ColecaoService(ColecaoRepository colecaoRepository, ColecaoMapper colecaoMapper) {
+    public ColecaoService(ColecaoRepository colecaoRepository) {
         this.colecaoRepository = colecaoRepository;
-        this.colecaoMapper = colecaoMapper;
     }
 
     public List<ColecaoRequestDTO> listarColecoes() {
         List<ColecaoModel> colecoes = colecaoRepository.findAll();
         return colecoes.stream()
-                .map(colecaoMapper::map)
+                .map(ColecaoMapper::map)
                 .collect(Collectors.toList());
     }
 
     public ColecaoRequestDTO buscarPorId(Long id) {
         Optional<ColecaoModel> colecao = colecaoRepository.findById(id);
-        return colecao.map(colecaoMapper::map).orElse(null);
+        return colecao.map(ColecaoMapper::map).orElse(null);
     }
 
     public ColecaoRequestDTO cadastrarColecao(ColecaoRequestDTO colecaoDTO) {
-        ColecaoModel colecao = colecaoMapper.map(colecaoDTO);
+        ColecaoModel colecao = ColecaoMapper.map(colecaoDTO);
         ColecaoModel salvo = colecaoRepository.save(colecao);
-        return colecaoMapper.map(salvo);
+        return ColecaoMapper.map(salvo);
     }
 
 
@@ -45,7 +43,7 @@ public class ColecaoService {
 
             ColecaoModel atualizado = colecaoRepository.save(colecao);
 
-            return colecaoMapper.map(atualizado);
+            return ColecaoMapper.map(atualizado);
     }
 
     public void removerColecao(Long id) {

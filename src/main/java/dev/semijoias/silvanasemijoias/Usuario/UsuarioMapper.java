@@ -11,7 +11,6 @@ public class UsuarioMapper {
         usuarioModel.setNome(usuarioDTO.getNome());
         usuarioModel.setCpf(usuarioDTO.getCpf());
         usuarioModel.setEmail(usuarioDTO.getEmail());
-        usuarioModel.setSenha(usuarioDTO.getSenha());
         usuarioModel.setEndereco(usuarioDTO.getEndereco());
         usuarioModel.setTipoUsuario(usuarioDTO.getTipoUsuario());
         usuarioModel.setTelefone(usuarioDTO.getTelefone());
@@ -24,7 +23,6 @@ public class UsuarioMapper {
         usuarioDTO.setNome(usuarioModel.getNome());
         usuarioDTO.setCpf(usuarioModel.getCpf());
         usuarioDTO.setEmail(usuarioModel.getEmail());
-        usuarioDTO.setSenha(usuarioModel.getSenha());
         usuarioDTO.setEndereco(usuarioModel.getEndereco());
         usuarioDTO.setTipoUsuario(usuarioModel.getTipoUsuario());
         usuarioDTO.setTelefone(usuarioModel.getTelefone());

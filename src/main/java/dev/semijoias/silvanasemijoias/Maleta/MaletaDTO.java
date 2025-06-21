@@ -1,5 +1,7 @@
 package dev.semijoias.silvanasemijoias.Maleta;
 
+import dev.semijoias.silvanasemijoias.ItemMaleta.ItemMaletaAtualizadoDTO;
+import dev.semijoias.silvanasemijoias.ItemMaleta.ItemMaletaDTO;
 import dev.semijoias.silvanasemijoias.Vendedora.VendedoraModel;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -7,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -19,6 +22,7 @@ public class MaletaDTO {
     private String status;
     private LocalDate dataEntrega;
     private LocalDate dataDevolucao;
+    private List<ItemMaletaAtualizadoDTO> itens;
 
 
 }

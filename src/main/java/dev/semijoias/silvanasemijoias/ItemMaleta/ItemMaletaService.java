@@ -1,13 +1,18 @@
 package dev.semijoias.silvanasemijoias.ItemMaleta;
 
+import dev.semijoias.silvanasemijoias.Joia.JoiaMapper;
 import dev.semijoias.silvanasemijoias.Joia.JoiaModel;
 import dev.semijoias.silvanasemijoias.Joia.JoiaRepository;
+import dev.semijoias.silvanasemijoias.Joia.JoiaResponseDTO;
 import dev.semijoias.silvanasemijoias.Maleta.MaletaModel;
 import dev.semijoias.silvanasemijoias.Maleta.MaletaRepository;
 import jakarta.transaction.Transactional;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -16,34 +21,40 @@ public class ItemMaletaService {
     private final ItemMaletaRepository itemMaletaRepository;
     private final MaletaRepository maletaRepository;
     private final JoiaRepository joiaRepository;
-    private final ItemMaletaMapper itemMaletaMapper;
 
-    public ItemMaletaService(ItemMaletaRepository itemMaletaRepository, MaletaRepository maletaRepository, JoiaRepository joiaRepository, ItemMaletaMapper itemMaletaMapper) {
+    public ItemMaletaService(ItemMaletaRepository itemMaletaRepository, MaletaRepository maletaRepository, JoiaRepository joiaRepository) {
         this.itemMaletaRepository = itemMaletaRepository;
         this.maletaRepository = maletaRepository;
         this.joiaRepository = joiaRepository;
-        this.itemMaletaMapper = itemMaletaMapper;
     }
 
     public List<ItemMaletaDTO> listarItemMaleta() {
         return itemMaletaRepository.findAll()
                 .stream()
-                .map(itemMaletaMapper::map)
-                .collect(Collectors.toList());
+                .map(ItemMaletaMapper::map).toList();
     }
 
     public List<ItemMaletaDTO> listarPorMaleta(Long maletaId) {
         return itemMaletaRepository.findAll()
                 .stream()
                 .filter(item -> item.getMaleta().getId().equals(maletaId))
-                .map(itemMaletaMapper::map)
-                .collect(Collectors.toList());
+                .map(ItemMaletaMapper::map).toList();
+    }
+
+    private MaletaModel buscarMalete(Long maletaId) {
+        return this.maletaRepository.findById(maletaId).orElseThrow(() -> new RuntimeException("Maleta nao encontrada"));
+    }
+
+    private JoiaModel buscarJoia(Long joiaId) {
+        return this.joiaRepository.findById(joiaId).orElseThrow(() -> new RuntimeException("Joia nao encontrado"));
     }
 
     public ItemMaletaDTO buscarPorId(Long id) {
-        return itemMaletaRepository.findById(id)
-                .map(itemMaletaMapper::map)
-                .orElse(null);
+        return ItemMaletaMapper.map(buscaPorId(id));
+    }
+
+    private ItemMaletaModel buscaPorId(Long id) {
+        return this.itemMaletaRepository.findById(id).orElseThrow(() -> new RuntimeException("Item maleta não encontrado"));
     }
 
     public ItemMaletaDTO cadastrarItemMaleta(ItemMaletaDTO itemMaletaDTO) {
@@ -52,19 +63,19 @@ public class ItemMaletaService {
         JoiaModel joia = joiaRepository.findById(itemMaletaDTO.getJoiaId())
                 .orElseThrow(() -> new RuntimeException("Joia não encontrada"));
 
-        ItemMaletaModel item = itemMaletaMapper.map(itemMaletaDTO);
+        ItemMaletaModel item = ItemMaletaMapper.map(itemMaletaDTO, joia, maleta);
         item.setMaleta(maleta);
         item.setJoia(joia);
 
         maleta.getItens().add(item);
 
         ItemMaletaModel salvo = itemMaletaRepository.save(item);
-        return itemMaletaMapper.map(salvo);
+        return ItemMaletaMapper.map(salvo);
     }
 
     @Transactional
-    public ItemMaletaDTO atualizarItemMaleta(Long id, ItemMaletaDTO itemMaletaDTO) {
-        ItemMaletaModel itemExistente = itemMaletaRepository.findById(id)
+    public ItemMaletaDTO atualizarItemMaleta(ItemMaletaDTO itemMaletaDTO /* itemMaletaDTO */) {
+        ItemMaletaModel itemExistente = itemMaletaRepository.findById(itemMaletaDTO.getId())
                 .orElseThrow(() -> new RuntimeException("Item não encontrado"));
 
         if (!itemExistente.getMaleta().getId().equals(itemMaletaDTO.getMaletaId())) {
@@ -75,6 +86,7 @@ public class ItemMaletaService {
             novaMaleta.getItens().add(itemExistente);
 
             }
+
         JoiaModel novaJoia = joiaRepository.findById(itemMaletaDTO.getJoiaId())
                 .orElseThrow(() -> new RuntimeException("Joia não encontrada"));
         itemExistente.setJoia(novaJoia);
@@ -84,8 +96,9 @@ public class ItemMaletaService {
         itemExistente.setDataInsercao(itemMaletaDTO.getDataInsercao());
 
         ItemMaletaModel atualizado = itemMaletaRepository.save(itemExistente);
-        return itemMaletaMapper.map(atualizado);
+        return ItemMaletaMapper.map(atualizado);
     }
+
 
     @Transactional
     public void removerItemMaleta(Long id) {
