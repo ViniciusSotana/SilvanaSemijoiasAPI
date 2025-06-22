@@ -11,7 +11,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/vendedoras")
-@CrossOrigin
 public class VendedoraController {
 
     private final VendedoraService vendedoraService;

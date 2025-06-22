@@ -61,7 +61,7 @@ public class VendedoraService {
             VendedoraModel vendedoraExistente = vendedora.get();
 
             MaletaModel antigaMaleta = vendedoraExistente.getMaleta();
-            if (!antigaMaleta.getId().equals(vendedoraDTO.getMaletaId())) {
+            if (antigaMaleta == null || !antigaMaleta.getId().equals(vendedoraDTO.getMaletaId())) {
                 antigaMaleta.setVendedora(null);
                 this.maletaRepository.save(antigaMaleta);
             }
