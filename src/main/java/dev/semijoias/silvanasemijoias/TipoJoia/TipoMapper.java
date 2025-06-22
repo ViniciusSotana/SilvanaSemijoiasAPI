@@ -34,6 +34,15 @@ public class TipoMapper {
         );
     }
 
+    public static TipoModel mapModel(TipoJoiaResponseDTO tipoJoiaResponseDTO) {
+        return new TipoModel(
+                tipoJoiaResponseDTO.getId(),
+                tipoJoiaResponseDTO.getDescricao(),
+                tipoJoiaResponseDTO.getQntVendida(),
+                null
+        );
+    }
+
 
 
 }

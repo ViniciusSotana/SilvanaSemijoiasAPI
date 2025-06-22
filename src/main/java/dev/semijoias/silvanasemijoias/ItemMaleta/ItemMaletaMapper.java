@@ -26,7 +26,6 @@ public class ItemMaletaMapper {
 
         itemMaletaModel.setId(itemMaletaDTO.getId());
         itemMaletaModel.setQuantidade(itemMaletaDTO.getQuantidade());
-        itemMaletaModel.setPrecoSugerido(itemMaletaDTO.getPrecoSugerido());
         itemMaletaModel.setDataInsercao(itemMaletaDTO.getDataInsercao());
 
         itemMaletaModel.setJoia(joiaModel);
@@ -41,7 +40,6 @@ public class ItemMaletaMapper {
         itemMaletaDTO.setJoiaId(itemMaletaModel.getJoia().getId());
         itemMaletaDTO.setMaletaId(itemMaletaModel.getMaleta().getId());
         itemMaletaDTO.setQuantidade(itemMaletaModel.getQuantidade());
-        itemMaletaDTO.setPrecoSugerido(itemMaletaModel.getPrecoSugerido());
         itemMaletaDTO.setDataInsercao(itemMaletaModel.getDataInsercao());
 
         return itemMaletaDTO;
@@ -52,10 +50,20 @@ public class ItemMaletaMapper {
         itemMaletaDTO.setId(itemMaletaModel.getId());
         itemMaletaDTO.setJoia(JoiaMapper.mapResponse(itemMaletaModel.getJoia()));
         itemMaletaDTO.setQuantidade(itemMaletaModel.getQuantidade());
-        itemMaletaDTO.setPrecoSugerido(itemMaletaModel.getPrecoSugerido());
         itemMaletaDTO.setDataInsercao(itemMaletaModel.getDataInsercao());
 
         return itemMaletaDTO;
     }
+
+    public static ItemMaletaModel mapModel(ItemMaletaAtualizadoDTO itemMaletaAtualizadoDTO) {
+        ItemMaletaModel itemMaletaModel = new ItemMaletaModel();
+        itemMaletaModel.setId(itemMaletaAtualizadoDTO.getId());
+        itemMaletaModel.setJoia(JoiaMapper.mapResponse(itemMaletaAtualizadoDTO.getJoia()));
+        itemMaletaModel.setQuantidade(itemMaletaAtualizadoDTO.getQuantidade());
+        itemMaletaModel.setDataInsercao(itemMaletaAtualizadoDTO.getDataInsercao());
+
+        return itemMaletaModel;
+    }
+
 
 }

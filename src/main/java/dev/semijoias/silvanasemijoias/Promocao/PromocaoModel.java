@@ -30,7 +30,6 @@ public class PromocaoModel {
 
     @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "promocao_id")
-    @JsonIgnore
     private List<JoiaModel> joias = new ArrayList<>();
 
 }

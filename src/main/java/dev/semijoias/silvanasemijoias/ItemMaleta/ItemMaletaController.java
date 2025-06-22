@@ -56,9 +56,9 @@ public class ItemMaletaController {
         return ResponseEntity.ok(salvo);
     }
 
-    @PutMapping()
-    public ResponseEntity<ItemMaletaDTO> atualizar(@Valid @RequestBody ItemMaletaDTO dto) {
-        ItemMaletaDTO atualizado = itemMaletaService.atualizarItemMaleta(dto);
+    @PutMapping("/{id}")
+    public ResponseEntity<ItemMaletaDTO> atualizar(@PathVariable Long id, @Valid @RequestBody ItemMaletaDTO dto) {
+        ItemMaletaDTO atualizado = itemMaletaService.atualizarItemMaleta(id, dto);
         return ResponseEntity.ok(atualizado);
     }
 

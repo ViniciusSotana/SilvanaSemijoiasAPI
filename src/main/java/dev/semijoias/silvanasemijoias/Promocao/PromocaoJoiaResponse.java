@@ -1,8 +1,5 @@
 package dev.semijoias.silvanasemijoias.Promocao;
 
-import dev.semijoias.silvanasemijoias.Joia.JoiaModel;
-import dev.semijoias.silvanasemijoias.Joia.JoiaRequestDTO;
-import dev.semijoias.silvanasemijoias.Joia.JoiaResponseDTO;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -10,13 +7,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class PromocaoDTO {
+public class PromocaoJoiaResponse {
 
     private Long id;
     @NotBlank(message = "Nome obrigatorio")
@@ -27,6 +22,5 @@ public class PromocaoDTO {
     private LocalDate dataInicio;
     @NotNull(message = "Data de fim obrigatorio")
     private LocalDate dataFim;
-    private List<JoiaRequestDTO> joiasId = new ArrayList<>();
 
 }

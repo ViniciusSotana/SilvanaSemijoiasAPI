@@ -16,7 +16,7 @@ public class PromocaoController {
     private final PromocaoService promocaoService;
 
     @PostMapping
-    public ResponseEntity<PromocaoDTO> createPromocao(@RequestBody @Valid PromocaoDTO dto) {
+    public ResponseEntity<PromocaoDTO> createPromocao(@RequestBody @Valid PromocaoCreateDTO dto) {
         return ResponseEntity.ok(promocaoService.createPromocao(dto));
     }
 

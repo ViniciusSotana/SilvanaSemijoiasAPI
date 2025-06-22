@@ -13,45 +13,51 @@ import java.util.stream.Collectors;
 public class PromocaoService {
 
     private final PromocaoRepository promocaoRepository;
-    private final PromocaoMapper promocaoMapper;
     private final JoiaRepository joiaRepository;
 
-    public PromocaoService(PromocaoRepository promocaoRepository, PromocaoMapper promocaoMapper, JoiaRepository joiaRepository) {
+    public PromocaoService(PromocaoRepository promocaoRepository, JoiaRepository joiaRepository) {
         this.promocaoRepository = promocaoRepository;
-        this.promocaoMapper = promocaoMapper;
         this.joiaRepository = joiaRepository;
     }
     
     
 
-    public PromocaoDTO createPromocao(PromocaoDTO dto) {
-        PromocaoModel model = promocaoMapper.map(dto);
+    public PromocaoDTO createPromocao(PromocaoCreateDTO dto) {
+        PromocaoModel model = PromocaoMapper.map(dto);
+
+        List<JoiaModel> joias = joiaRepository.findAllById(dto.getJoiasId());
+        for (JoiaModel joia : joias) {
+            joia.setPromocao(model);
+        }
+        this.joiaRepository.saveAll(model.getJoias());
+
+        model.setJoias(joias);
         PromocaoModel salvo = promocaoRepository.save(model);
-        return promocaoMapper.map(salvo);
+        return PromocaoMapper.map(salvo);
     }
 
 
     public List<PromocaoDTO> listarPromocoes() {
         List<PromocaoModel> promocoes = promocaoRepository.findAll();
         return promocoes.stream()
-                .map(promocaoMapper::map)
+                .map(PromocaoMapper::map)
                 .collect(Collectors.toList());
     }
 
     public PromocaoDTO buscarPorId(Long id) {
         Optional<PromocaoModel> promocao = promocaoRepository.findById(id);
-        return promocao.map(promocaoMapper::map).orElse(null);
+        return promocao.map(PromocaoMapper::map).orElse(null);
     }
 
     public PromocaoDTO atualizarPromocao(Long id, PromocaoDTO dto) {
         PromocaoModel existente = promocaoRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Promoção não encontrada"));
 
-        PromocaoModel atualizado = promocaoMapper.map(dto);
+        PromocaoModel atualizado = PromocaoMapper.map(dto);
         atualizado.setId(id);
 
         PromocaoModel salvo = promocaoRepository.save(atualizado);
-        return promocaoMapper.map(salvo);
+        return PromocaoMapper.map(salvo);
     }
 
     public void deletarPromocao(Long id) {
@@ -91,7 +97,7 @@ public class PromocaoService {
         }
 
         PromocaoModel salvo = promocaoRepository.save(promocao);
-        return promocaoMapper.map(salvo);
+        return PromocaoMapper.map(salvo);
     }
 
     public PromocaoDTO removerJoiaDaPromocao(Long promocaoId, Long joiaId) {
@@ -113,7 +119,7 @@ public class PromocaoService {
         joiaRepository.save(joia);
         PromocaoModel salvo = promocaoRepository.save(promocao);
 
-        return promocaoMapper.map(salvo);
+        return PromocaoMapper.map(salvo);
     }
 
 

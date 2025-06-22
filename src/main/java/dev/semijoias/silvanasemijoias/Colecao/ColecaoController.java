@@ -19,8 +19,8 @@ public class ColecaoController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ColecaoRequestDTO>> listarColecao() {
-        List<ColecaoRequestDTO> colecoes = colecaoService.listarColecoes();
+    public ResponseEntity<List<ColecaoResponseDTO>> listarColecao() {
+        List<ColecaoResponseDTO> colecoes = colecaoService.listarColecoes();
         return ResponseEntity.ok(colecoes);
     }
 
@@ -35,8 +35,8 @@ public class ColecaoController {
     }
 
     @PostMapping
-    public ResponseEntity<ColecaoRequestDTO> criarColecao(@RequestBody @Valid ColecaoRequestDTO ColecaoDTO) {
-        ColecaoRequestDTO colecaoCriada = colecaoService.cadastrarColecao(ColecaoDTO);
+    public ResponseEntity<ColecaoResponseDTO> criarColecao(@RequestBody @Valid ColecaoRequestDTO ColecaoDTO) {
+        ColecaoResponseDTO colecaoCriada = colecaoService.cadastrarColecao(ColecaoDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(colecaoCriada);
     }
 

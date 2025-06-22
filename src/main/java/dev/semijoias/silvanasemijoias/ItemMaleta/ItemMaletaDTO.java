@@ -23,10 +23,6 @@ public class ItemMaletaDTO {
     @NotNull(message = "Quantidade obrigatória")
     private Integer quantidade;
 
-    @NotNull(message = "Preço sugerido obrigatório")
-    private Double precoSugerido;
-
-    @NotNull(message = "Data de inserção obrigatória")
     private LocalDate dataInsercao;
 }
 

@@ -43,7 +43,7 @@ public class JoiaService {
     }
 
     public JoiaRequestDTO cadastrarJoia(JoiaRequestDTO joiaRequestDTO) {
-        JoiaModel joia = JoiaMapper.map(joiaRequestDTO);
+        JoiaModel joia = JoiaMapper.map(joiaRequestDTO, null);
 
         ColecaoModel colecao = colecaoRepository.findById(joiaRequestDTO.getColecaoId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,"Coleção não encontrada"));

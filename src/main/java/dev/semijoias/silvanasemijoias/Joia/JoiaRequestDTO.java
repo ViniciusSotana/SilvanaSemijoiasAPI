@@ -2,6 +2,7 @@ package dev.semijoias.silvanasemijoias.Joia;
 
 
 import dev.semijoias.silvanasemijoias.Imagem.ImagemModel;
+import dev.semijoias.silvanasemijoias.Promocao.PromocaoJoiaResponse;
 import dev.semijoias.silvanasemijoias.Promocao.PromocaoModel;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -30,7 +31,7 @@ public class JoiaRequestDTO {
     private Long colecaoId;
     @Size(min = 1, message = "Deve conter ao menos uma imagem")
     List<ImagemModel> imagens = new ArrayList<>();
-    private PromocaoModel promocao;
+    private PromocaoJoiaResponse promocao;
 
 
 }

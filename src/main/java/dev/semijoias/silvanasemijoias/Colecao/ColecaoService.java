@@ -15,10 +15,10 @@ public class ColecaoService {
         this.colecaoRepository = colecaoRepository;
     }
 
-    public List<ColecaoRequestDTO> listarColecoes() {
+    public List<ColecaoResponseDTO> listarColecoes() {
         List<ColecaoModel> colecoes = colecaoRepository.findAll();
         return colecoes.stream()
-                .map(ColecaoMapper::map)
+                .map(ColecaoMapper::mapResponse)
                 .collect(Collectors.toList());
     }
 
@@ -27,10 +27,10 @@ public class ColecaoService {
         return colecao.map(ColecaoMapper::map).orElse(null);
     }
 
-    public ColecaoRequestDTO cadastrarColecao(ColecaoRequestDTO colecaoDTO) {
+    public ColecaoResponseDTO cadastrarColecao(ColecaoRequestDTO colecaoDTO) {
         ColecaoModel colecao = ColecaoMapper.map(colecaoDTO);
         ColecaoModel salvo = colecaoRepository.save(colecao);
-        return ColecaoMapper.map(salvo);
+        return ColecaoMapper.mapResponse(salvo);
     }
 
 

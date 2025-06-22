@@ -21,6 +21,8 @@ public class UsuarioDTO {
     private String cpf;
     @Email(message = "O campo email deve ser valido")
     private String email;
+    @NotBlank(message = "O campo senha é obrigatorio")
+    private String senha;
     @NotBlank(message = "O endereço é obrigatório")
     private String endereco;
     private TipoUsuario tipoUsuario;

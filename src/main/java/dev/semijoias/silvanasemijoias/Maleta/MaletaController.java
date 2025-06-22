@@ -34,15 +34,34 @@ public class MaletaController {
         }
     }
 
+    /*
     @PostMapping
     public ResponseEntity<MaletaDTO> criarMaleta(@RequestBody @Valid MaletaDTO MaletaDTO) {
         MaletaDTO maletaCriada = maletaService.cadastrarMaleta(MaletaDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(maletaCriada);
     }
+    */
 
-    @PutMapping("/{id}")
+    @PostMapping
+    public ResponseEntity<MaletaResponseDTO> criarMaleta(@RequestBody @Valid MaletaRequestDTO maletaRequestDTO) {
+        MaletaResponseDTO maleta = maletaService.cadastrarMaleta(maletaRequestDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(maleta);
+    }
+
+
+    /*@PutMapping("/{id}")
     public ResponseEntity<MaletaDTO> atualizarMaleta(@PathVariable Long id, @RequestBody @Valid MaletaDTO maletaDTO) {
         MaletaDTO maletaAtualizada = maletaService.atualizarMaleta(id, maletaDTO);
+        if (maletaAtualizada != null) {
+            return ResponseEntity.ok(maletaAtualizada);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }*/
+
+    @PutMapping("/{id}")
+    public ResponseEntity<MaletaDTO> atualizarMaleta(@PathVariable Long id, @RequestBody @Valid MaletaVendedoraDTO maletaVendedoraDTO) {
+        MaletaDTO maletaAtualizada = maletaService.atualizarMaleta(id, maletaVendedoraDTO);
         if (maletaAtualizada != null) {
             return ResponseEntity.ok(maletaAtualizada);
         } else {

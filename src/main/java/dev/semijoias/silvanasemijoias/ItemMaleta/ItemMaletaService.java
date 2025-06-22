@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -69,30 +70,37 @@ public class ItemMaletaService {
 
         maleta.getItens().add(item);
 
+        item.setDataInsercao(LocalDate.now());
         ItemMaletaModel salvo = itemMaletaRepository.save(item);
         return ItemMaletaMapper.map(salvo);
     }
 
     @Transactional
-    public ItemMaletaDTO atualizarItemMaleta(ItemMaletaDTO itemMaletaDTO /* itemMaletaDTO */) {
-        ItemMaletaModel itemExistente = itemMaletaRepository.findById(itemMaletaDTO.getId())
-                .orElseThrow(() -> new RuntimeException("Item não encontrado"));
+    public ItemMaletaDTO atualizarItemMaleta(Long id, ItemMaletaDTO itemMaletaDTO) {
+        ItemMaletaModel itemExistente = itemMaletaRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Item com o ID " + id + " não encontrado."));
 
-        if (!itemExistente.getMaleta().getId().equals(itemMaletaDTO.getMaletaId())) {
-            itemExistente.getMaleta().getItens().remove(itemExistente);
-            MaletaModel novaMaleta = maletaRepository.findById(itemMaletaDTO.getMaletaId())
-                    .orElseThrow(() -> new RuntimeException("Nova maleta não encontrada"));
-            itemExistente.setMaleta(novaMaleta);
-            novaMaleta.getItens().add(itemExistente);
+        MaletaModel maletaAntiga = itemExistente.getMaleta();
+        if (maletaAntiga == null || !maletaAntiga.getId().equals(itemMaletaDTO.getMaletaId())) {
 
+            if (maletaAntiga != null) {
+                maletaAntiga.getItens().remove(itemExistente);
             }
 
-        JoiaModel novaJoia = joiaRepository.findById(itemMaletaDTO.getJoiaId())
-                .orElseThrow(() -> new RuntimeException("Joia não encontrada"));
-        itemExistente.setJoia(novaJoia);
+            MaletaModel novaMaleta = maletaRepository.findById(itemMaletaDTO.getMaletaId())
+                    .orElseThrow(() -> new RuntimeException("Maleta com o ID " + itemMaletaDTO.getMaletaId() + " não encontrada."));
+
+            itemExistente.setMaleta(novaMaleta);
+            novaMaleta.getItens().add(itemExistente);
+        }
+
+        if (!itemExistente.getJoia().getId().equals(itemMaletaDTO.getJoiaId())) {
+            JoiaModel novaJoia = joiaRepository.findById(itemMaletaDTO.getJoiaId())
+                    .orElseThrow(() -> new RuntimeException("Joia com o ID " + itemMaletaDTO.getJoiaId() + " não encontrada."));
+            itemExistente.setJoia(novaJoia);
+        }
 
         itemExistente.setQuantidade(itemMaletaDTO.getQuantidade());
-        itemExistente.setPrecoSugerido(itemMaletaDTO.getPrecoSugerido());
         itemExistente.setDataInsercao(itemMaletaDTO.getDataInsercao());
 
         ItemMaletaModel atualizado = itemMaletaRepository.save(itemExistente);
