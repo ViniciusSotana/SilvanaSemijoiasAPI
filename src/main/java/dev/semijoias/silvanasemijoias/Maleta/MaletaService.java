@@ -6,6 +6,7 @@ import dev.semijoias.silvanasemijoias.ItemMaleta.ItemMaletaRepository;
 import dev.semijoias.silvanasemijoias.Vendedora.VendedoraModel;
 import dev.semijoias.silvanasemijoias.Vendedora.VendedoraRepository;
 import dev.semijoias.silvanasemijoias.Vendedora.VendedoraService;
+import jakarta.transaction.Transactional;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -67,6 +68,7 @@ public class MaletaService {
         maleta.setVendedora(vendedora);
         vendedora.setMaleta(maleta);
 
+        maletaRepository.save(maleta);
         vendedoraRepository.save(vendedora);
         return MaletaMapper.mapResponse(maleta);
     }
@@ -88,21 +90,28 @@ public class MaletaService {
         return null;
     }*/
 
+    @Transactional
     public MaletaDTO atualizarMaleta(Long id, MaletaVendedoraDTO maletaUpdateDTO) {
-        // 1. Busca a maleta que queremos atualizar
         Optional<MaletaModel> maletaOptional = maletaRepository.findById(id);
 
         if (maletaOptional.isPresent()) {
             MaletaModel maletaExistente = maletaOptional.get();
-
-            // 2. Se um vendedoraId foi enviado, busca a vendedora no banco
             if (maletaUpdateDTO.getVendedoraId() != null) {
                 VendedoraModel vendedora = vendedoraRepository.findById(maletaUpdateDTO.getVendedoraId())
                         .orElseThrow(() -> new RuntimeException("Vendedora não encontrada com o ID: " + maletaUpdateDTO.getVendedoraId()));
-                maletaExistente.setVendedora(vendedora); // 3. Associa a vendedora encontrada
+
+                VendedoraModel vendadedoraAntiga = maletaExistente.getVendedora();
+                vendadedoraAntiga.setMaleta(null);
+
+                vendedoraRepository.save(vendadedoraAntiga);
+
+                maletaExistente.setVendedora(vendedora);
+
+                vendedora.setMaleta(maletaExistente);
+
+                vendedoraRepository.save(vendedora);
             }
 
-            // 4. Atualiza os outros campos
             maletaExistente.setStatus(maletaUpdateDTO.getStatus());
             maletaExistente.setDataEntrega(maletaUpdateDTO.getDataEntrega());
             maletaExistente.setDataDevolucao(maletaUpdateDTO.getDataDevolucao());
