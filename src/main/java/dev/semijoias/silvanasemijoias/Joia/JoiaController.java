@@ -54,8 +54,8 @@ public class JoiaController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<JoiaRequestDTO> atualizarJoia(@PathVariable Long id, @RequestBody @Valid JoiaRequestDTO JoiaDTO) {
-        JoiaRequestDTO joiaAtualizada = joiaService.atualizarJoia(id, JoiaDTO);
+    public ResponseEntity<JoiaResponseDTO> atualizarJoia(@PathVariable Long id, @RequestBody @Valid JoiaRequestDTO JoiaDTO) {
+        JoiaResponseDTO joiaAtualizada = joiaService.atualizarJoia(id, JoiaDTO);
         if (joiaAtualizada != null) {
             return ResponseEntity.ok(joiaAtualizada);
         } else {

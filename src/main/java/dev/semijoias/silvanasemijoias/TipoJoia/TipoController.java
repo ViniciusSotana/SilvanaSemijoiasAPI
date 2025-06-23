@@ -19,8 +19,8 @@ public class TipoController {
     }
 
     @GetMapping
-    public ResponseEntity<List<TipoRequestDTO>> listarTipos() {
-        List<TipoRequestDTO> tipos = tipoService.listarTipos();
+    public ResponseEntity<List<TipoJoiaResponseDTO>> listarTipos() {
+        List<TipoJoiaResponseDTO> tipos = tipoService.listarTipos();
         return ResponseEntity.ok(tipos);
     }
 

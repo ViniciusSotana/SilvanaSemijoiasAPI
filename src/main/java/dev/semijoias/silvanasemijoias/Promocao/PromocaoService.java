@@ -3,6 +3,7 @@ package dev.semijoias.silvanasemijoias.Promocao;
 import dev.semijoias.silvanasemijoias.Joia.JoiaModel;
 import dev.semijoias.silvanasemijoias.Joia.JoiaRepository;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -55,6 +56,7 @@ public class PromocaoService {
 
         PromocaoModel atualizado = PromocaoMapper.map(dto);
         atualizado.setId(id);
+        atualizado.setJoias(existente.getJoias());
 
         PromocaoModel salvo = promocaoRepository.save(atualizado);
         return PromocaoMapper.map(salvo);
@@ -75,15 +77,19 @@ public class PromocaoService {
         promocaoRepository.deleteById(id);
     }
 
+    @Transactional
     public PromocaoDTO adicionarJoiaEmPromocao(Long promocaoId, Long joiaId) {
         PromocaoModel promocao = promocaoRepository.findById(promocaoId)
-                .orElseThrow(() -> new EntityNotFoundException("Promoção não encontrada"));
+                .orElseThrow(() -> new EntityNotFoundException("Promoção não encontrada com id: " + promocaoId));
 
         JoiaModel joia = joiaRepository.findById(joiaId)
-                .orElseThrow(() -> new EntityNotFoundException("Joia não encontrada"));
+                .orElseThrow(() -> new EntityNotFoundException("Joia não encontrada com id: " + joiaId));
 
-        if (!promocao.getJoias().contains(joia)) {
-            promocao.getJoias().add(joia);
+        boolean jaExiste = promocao.getJoias().stream().anyMatch(j -> j.getId().equals(joiaId));
+
+        if (!jaExiste) {
+
+            joia.setPromocao(promocao);
 
             if (joia.getValorOriginal() == null) {
                 joia.setValorOriginal(joia.getValorVenda());
@@ -93,11 +99,13 @@ public class PromocaoService {
             double novoValor = joia.getValorOriginal() * (1 - desconto / 100);
             joia.setValorVenda(novoValor);
 
+            promocao.getJoias().add(joia);
+
             joiaRepository.save(joia);
+            promocaoRepository.save(promocao);
         }
 
-        PromocaoModel salvo = promocaoRepository.save(promocao);
-        return PromocaoMapper.map(salvo);
+        return PromocaoMapper.map(promocao);
     }
 
     public PromocaoDTO removerJoiaDaPromocao(Long promocaoId, Long joiaId) {

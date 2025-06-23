@@ -31,10 +31,6 @@ public class VendedoraMapper {
         vendedoraDTO.setTelefone(vendedoraModel.getTelefone());
         vendedoraDTO.setComissao(vendedoraModel.getComissao());
 
-        if (vendedoraModel.getMaleta() != null) {
-            vendedoraDTO.setMaletaId(vendedoraModel.getMaleta().getId());
-        }
-
         return vendedoraDTO;
     }
 }

@@ -15,10 +15,10 @@ public class TipoService {
         this.tipoRepository = tipoRepository;
     }
 
-    public List<TipoRequestDTO> listarTipos() {
+    public List<TipoJoiaResponseDTO> listarTipos() {
         List<TipoModel> tipos = tipoRepository.findAll();
         return tipos.stream()
-                .map(TipoMapper::map)
+                .map(TipoMapper::mapResponse)
                 .collect(Collectors.toList());
     }
 

@@ -1,6 +1,7 @@
 package dev.semijoias.silvanasemijoias.TipoJoia;
 
 
+import dev.semijoias.silvanasemijoias.Joia.JoiaMapper;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -30,7 +31,8 @@ public class TipoMapper {
         return new TipoJoiaResponseDTO(
                 tipoModel.getId(),
                 tipoModel.getDescricao(),
-                tipoModel.getQntVendida()
+                tipoModel.getQntVendida(),
+                tipoModel.getJoias().stream().map(JoiaMapper::map).toList()
         );
     }
 
@@ -38,11 +40,9 @@ public class TipoMapper {
         return new TipoModel(
                 tipoJoiaResponseDTO.getId(),
                 tipoJoiaResponseDTO.getDescricao(),
-                tipoJoiaResponseDTO.getQntVendida(),
+                tipoJoiaResponseDTO.getQuantidadeVendida(),
                 null
         );
     }
-
-
 
 }

@@ -13,9 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class VendedoraDTO extends UsuarioDTO {
 
-    private Long maletaId;
     @Min(value = 0, message = "Comissão deve ser no mínimo 0")
-    @NotNull(message = "comissao obrigatoria")
     private Double comissao;
 
 }

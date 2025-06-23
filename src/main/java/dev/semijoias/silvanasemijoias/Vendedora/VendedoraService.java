@@ -38,38 +38,16 @@ public class VendedoraService {
     public VendedoraDTO cadastrarVendedora(VendedoraDTO vendedoraDTO) {
         VendedoraModel vendedora = VendedoraMapper.map(vendedoraDTO);
 
-        if (vendedoraDTO.getMaletaId() != null) {
-
-            MaletaModel maleta = maletaRepository.findById(vendedoraDTO.getMaletaId())
-                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Maleta não encontrada."));
-            vendedora.setMaleta(maleta);
-            if (maleta != null) {
-                maleta.setVendedora(vendedora);
-                this.maletaRepository.save(maleta);
-            }
-
-        }
-
         VendedoraModel salvo = vendedoraRepository.save(vendedora);
         return vendedoraMapper.map(salvo);
     }
 
 
-    public VendedoraDTO atualizarVendedora(Long id, VendedoraDTO vendedoraDTO) {
+   public VendedoraDTO atualizarVendedora(Long id, VendedoraDTO vendedoraDTO) {
         Optional<VendedoraModel> vendedora = vendedoraRepository.findById(id);
         if(vendedora.isPresent()){
             VendedoraModel vendedoraExistente = vendedora.get();
 
-            MaletaModel antigaMaleta = vendedoraExistente.getMaleta();
-            if (antigaMaleta == null || !antigaMaleta.getId().equals(vendedoraDTO.getMaletaId())) {
-                antigaMaleta.setVendedora(null);
-                this.maletaRepository.save(antigaMaleta);
-            }
-
-            MaletaModel maleta = maletaRepository.findById(vendedoraDTO.getMaletaId())
-                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,"Maleta não encontrada"));
-
-            vendedoraExistente.setMaleta(maleta);
             vendedoraExistente.setNome(vendedoraDTO.getNome());
             vendedoraExistente.setCpf(vendedoraDTO.getCpf());
             vendedoraExistente.setEmail(vendedoraDTO.getEmail());
@@ -78,9 +56,6 @@ public class VendedoraService {
             vendedoraExistente.setComissao(vendedoraDTO.getComissao());
             vendedoraExistente.setTelefone(vendedoraDTO.getTelefone());
             vendedoraExistente.setEmail(vendedoraDTO.getEmail());
-
-            maleta.setVendedora(vendedoraExistente);
-            this.maletaRepository.save(maleta);
 
             VendedoraModel atualizado = vendedoraRepository.save(vendedoraExistente);
             return vendedoraMapper.map(atualizado);

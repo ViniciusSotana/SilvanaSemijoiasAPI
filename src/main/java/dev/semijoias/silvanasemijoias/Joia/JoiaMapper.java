@@ -17,7 +17,6 @@ public class JoiaMapper {
         joiaModel.setQuantidadeEstoque(joiaDTO.getQuantidadeEstoque());
         joiaModel.setQuantidadeVendida(joiaDTO.getQuantidadeVendida());
         joiaModel.setImagens(joiaDTO.getImagens());
-        joiaModel.setPromocao(promocao);
         return joiaModel;
     }
 
@@ -80,7 +79,14 @@ public class JoiaMapper {
         return new JoiaModel();
     }
 
-
+    public static JoiaResponseDTO mapResponseCerto(JoiaRequestDTO joiaDTO) {
+        JoiaResponseDTO joiaResponseDTO = new JoiaResponseDTO();
+        joiaResponseDTO.setId(joiaDTO.getId());
+        joiaResponseDTO.setValorVenda(joiaDTO.getValorVenda());
+        joiaResponseDTO.setQuantidadeEstoque(joiaDTO.getQuantidadeEstoque());
+        joiaResponseDTO.setImagens(joiaDTO.getImagens());
+        return joiaResponseDTO;
+    }
 
     
 }

@@ -40,6 +40,7 @@ public class ClienteService {
         cliente.setNome(dto.getNome());
         cliente.setEmail(dto.getEmail());
         cliente.setTelefone(dto.getTelefone());
+        cliente.setEndereco(dto.getEndereco());
 
         ClienteModel atualizado = clienteRepository.save(cliente);
         return clienteMapper.map(atualizado);

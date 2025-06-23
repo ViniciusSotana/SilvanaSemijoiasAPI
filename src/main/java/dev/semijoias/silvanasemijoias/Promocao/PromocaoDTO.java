@@ -27,6 +27,6 @@ public class PromocaoDTO {
     private LocalDate dataInicio;
     @NotNull(message = "Data de fim obrigatorio")
     private LocalDate dataFim;
-    private List<JoiaRequestDTO> joiasId = new ArrayList<>();
+    private List<JoiaResponseDTO> joias = new ArrayList<>();
 
 }

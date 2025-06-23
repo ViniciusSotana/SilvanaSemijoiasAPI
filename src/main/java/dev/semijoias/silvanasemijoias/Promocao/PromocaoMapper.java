@@ -40,12 +40,17 @@ public class PromocaoMapper {
         promocaoDTO.setDataInicio(promocaoModel.getDataInicio());
         promocaoDTO.setDataFim(promocaoModel.getDataFim());
         promocaoDTO.setPercentualDesconto(promocaoModel.getPercentualDesconto());
-        promocaoDTO.setJoiasId(promocaoModel.getJoias().stream().map(JoiaMapper::map).toList());
+        promocaoDTO.setJoias(promocaoModel.getJoias().stream().map(JoiaMapper::mapResponse).toList());
 
         return promocaoDTO;
     }
 
     public static PromocaoJoiaResponse mapResponse(PromocaoModel promocaoModel) {
+
+        if (promocaoModel == null) {
+            return null;
+        }
+
         return new PromocaoJoiaResponse(
                 promocaoModel.getId(),
                 promocaoModel.getNome(),
