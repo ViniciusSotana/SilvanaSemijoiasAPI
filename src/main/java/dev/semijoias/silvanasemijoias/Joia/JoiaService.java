@@ -10,6 +10,7 @@ import dev.semijoias.silvanasemijoias.Promocao.PromocaoRepository;
 import dev.semijoias.silvanasemijoias.TipoJoia.TipoJoiaResponseDTO;
 import dev.semijoias.silvanasemijoias.TipoJoia.TipoModel;
 import dev.semijoias.silvanasemijoias.TipoJoia.TipoRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -50,18 +51,12 @@ public class JoiaService {
     public JoiaRequestDTO cadastrarJoia(JoiaRequestDTO joiaRequestDTO) {
         JoiaModel joia = JoiaMapper.map(joiaRequestDTO, null);
 
-        // CORREÇÃO: Lógica para imagem padrão na criação
         if (joiaRequestDTO.getImagens() == null || joiaRequestDTO.getImagens().isEmpty()) {
-            // 1. Crie uma instância de ImagemModel
             ImagemModel imagemPadrao = new ImagemModel();
-            // 2. Defina a URL
             imagemPadrao.setUrlImagem(URL_IMAGEM_PADRAO);
-            // 3. Associe a imagem à joia (importante para o relacionamento)
             imagemPadrao.setJoia(joia);
-            // 4. Adicione o objeto ImagemModel à lista de imagens da joia
             joia.setImagens(List.of(imagemPadrao));
         } else {
-            // Garante que a referência bidirecional está correta
             joiaRequestDTO.getImagens().forEach(imagem -> imagem.setJoia(joia));
             joia.setImagens(joiaRequestDTO.getImagens());
         }
@@ -90,21 +85,14 @@ public class JoiaService {
         joiaExistente.setQuantidadeEstoque(joiaRequestDTO.getQuantidadeEstoque());
         joiaExistente.setQuantidadeVendida(joiaRequestDTO.getQuantidadeVendida());
 
-        // CORREÇÃO: Lógica para imagem padrão na atualização
         if (joiaRequestDTO.getImagens() == null || joiaRequestDTO.getImagens().isEmpty()) {
-            // 1. Limpa a lista de imagens antigas
             joiaExistente.getImagens().clear();
-            // 2. Cria a nova imagem padrão
             ImagemModel imagemPadrao = new ImagemModel();
             imagemPadrao.setUrlImagem(URL_IMAGEM_PADRAO);
-            // 3. Associa à joia existente
             imagemPadrao.setJoia(joiaExistente);
-            // 4. Adiciona a imagem padrão à lista
             joiaExistente.getImagens().add(imagemPadrao);
         } else {
-            // Limpa a lista antiga para remover imagens que não estão mais no DTO
             joiaExistente.getImagens().clear();
-            // Para cada imagem vinda do DTO, é preciso setar a referência de volta para a joia
             joiaRequestDTO.getImagens().forEach(img -> {
                 img.setJoia(joiaExistente);
                 joiaExistente.getImagens().add(img);
@@ -137,6 +125,7 @@ public class JoiaService {
     }
 
 
+    @Transactional
     public void removerJoia(Long id) {
         JoiaModel joia = joiaRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Joia nao encontrada"));
@@ -148,9 +137,6 @@ public class JoiaService {
         }
         if (joia.getPromocao() != null) {
             joia.getPromocao().getJoias().remove(joia);
-        }
-        if (joia.getImagens() != null) {
-            joia.getImagens().remove(joia);
         }
         joiaRepository.delete(joia);
     }

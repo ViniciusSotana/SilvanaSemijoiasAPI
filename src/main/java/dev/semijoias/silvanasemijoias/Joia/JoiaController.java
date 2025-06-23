@@ -55,13 +55,9 @@ public class JoiaController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> removerJoia(@PathVariable Long id) {
-        if (joiaService.buscarPorId(id) != null) {
-            joiaService.removerJoia(id);
-            return ResponseEntity.noContent().build();
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Joia não encontrado");
-        }
+    public ResponseEntity<Void> removerJoia(@PathVariable Long id) {
+        joiaService.removerJoia(id);
+        return ResponseEntity.noContent().build();
     }
     
 }
