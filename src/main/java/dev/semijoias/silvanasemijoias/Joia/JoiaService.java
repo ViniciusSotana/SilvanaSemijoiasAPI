@@ -27,7 +27,7 @@ public class JoiaService {
     private final ColecaoRepository colecaoRepository;
     private final PromocaoRepository promocaoRepository;
 
-    private static final String URL_IMAGEM_PADRAO = "https://imgur.com/gallery/popular-shop-accented-solitaire-sywAy4I#/t/diamond"; // URL de imagem direta
+    private static final String URL_IMAGEM_PADRAO = "https://images.tcdn.com.br/img/img_prod/880179/modelo_16_luxo_6094113_5_66a539e100a5cfedb9e3c86a5c02023e.jpg";
 
     public JoiaService(JoiaRepository joiaRepository, TipoRepository tipoRepository, ColecaoRepository colecaoRepository, PromocaoRepository promocaoRepository) {
         this.joiaRepository = joiaRepository;
