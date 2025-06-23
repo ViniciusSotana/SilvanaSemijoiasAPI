@@ -42,14 +42,6 @@ public class ItemMaletaController {
     }
 
 
-    @GetMapping("/gerarRelatorioMaleta/{id}")
-    public ResponseEntity<byte[]> gerarRelatorioPorId(@PathVariable Long id) {
-        Optional<MaletaModel> maletaOpt = maletaRepository.findById(id);
-        if (maletaOpt.isEmpty()) return ResponseEntity.notFound().build();
-
-        return relatorioService.gerarRelatorioDeMaletaPorVendedora(maletaOpt.get());
-    }
-
     @PostMapping
     public ResponseEntity<ItemMaletaDTO> cadastrar(@Valid @RequestBody ItemMaletaDTO dto) {
         ItemMaletaDTO salvo = itemMaletaService.cadastrarItemMaleta(dto);

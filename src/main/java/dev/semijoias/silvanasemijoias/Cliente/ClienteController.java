@@ -32,11 +32,6 @@ public class ClienteController {
         return clienteService.buscarPorId(id);
     }
 
-    @GetMapping("/relatorios")
-    public ResponseEntity<byte[]> gerarRelatorioCliente() {
-        return this.relatorioService.gerarRelatorioDeClientes();
-    }
-
     @PutMapping("/{id}")
     public ClienteDTO atualizar(@PathVariable Long id, @RequestBody ClienteDTO dto) {
         return clienteService.atualizar(id, dto);

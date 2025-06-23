@@ -37,10 +37,6 @@ public class VendedoraController {
         }
     }
 
-    @GetMapping("/relatorios")
-    public ResponseEntity<byte[]> gerarRelatorioCliente() {
-        return this.relatorioService.gerarRelatorioDeVendedoras();
-    }
 
     @PostMapping("/gerar")
     public ResponseEntity gerarVendedoras(){
